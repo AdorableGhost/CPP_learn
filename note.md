@@ -7,6 +7,7 @@ g++ -std=c++11 -pthread a.cpp
 ```
 <li>QT Creator 编译带&ltthread&gt的CPP有ＢＵＧ，暂时不知道怎么去除！
 #### 代码1
+
 ```
 #include <iostream>
 #include <stdlib.h>
@@ -51,7 +52,6 @@ int main()
     cin.get();
     return 0;
 }
-
 ```
 
 #### 知识点２
