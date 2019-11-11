@@ -36,6 +36,8 @@ int main()
     }
 
 
+    cout<<"Finally count is \t"<<count<<endl;
+    cout<<"Used "<<n <<"threads"<<endl;
 
 
     cin.get();
