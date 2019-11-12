@@ -7,10 +7,10 @@ g++ -std=c++11 -pthread a.cpp
 
 ```
 <li>QT Creator 编译带&ltthread&gt的CPP有ＢＵＧ，暂时不知道怎么去除！
+
 #### 代码1
 
-```
-#include <iostream>
+```#include <iostream>
 #include <stdlib.h>
 #include <thread>
 
@@ -54,9 +54,9 @@ int main()
     return 0;
 }
 ```
-
 #### 知识点２
-<li> 关于thread类的内部成员
+
+<li> 关于thread类的内部成
 
 |关键字|详细解释|
 |--|--|
@@ -69,7 +69,7 @@ int main()
 |detach|detach thread|
 |swap |swap thread|
 |native_handle|get native handle|
-|hardware_concurrency[static]|Detect hardware concurrency (public static function)
+|hardware_concurrency[static]|Detect hardware concurrency (public static function)|
 
 ![](1.jpg)
 
