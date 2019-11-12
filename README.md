@@ -253,3 +253,15 @@ int main(void)
 -适配器 （Adaptor）
 
 -空间制配器 （allocator)
+
+
+获取远程代码修改后,想要push到远端与原来不同的新分支，可以使用下面的命令实现：
+git push origin 本地分支:远端希望创建的分支
+
+
+例如git下来的分支为master
+
+git branch
+>>> *master
+git push origin master:my_remote_new_branch
+#远端即可创建新的分支my_remote_new_branch,提交本地修改
