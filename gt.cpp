@@ -8,19 +8,19 @@ string Command[]={
     "git add .",
     "git commit -m ",
     "git push origin master",
-    "echo DOne with GIt"
+    "echo Done with GIt"
 };
 
 void run (string &comment)
 {
     // int* p[5]={0};
     string cmd;
-    Command[1]+=comment;
-    cout<<Command[1];
+    Command[1]+='\''+comment+'\'';
+  //  cout<<Command[1];
     for(auto cmd:Command)
     {
         // static int i=0;
-        cout<<cmd;
+        cout<<cmd<<endl;
         cout<<system(cmd.c_str());
         // i++;
     }
