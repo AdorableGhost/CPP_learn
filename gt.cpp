@@ -58,12 +58,12 @@ string Command[]={
     "git add .",
     "git commit -m ",
     "git push origin master",
-    "echo Done with GIt"
 };
 
 void run (string &comment)
 {
     // int* p[5]={0};
+     cout <<"\t"<<endl;
     string cmd;
     Command[1]+='\''+comment+'\'';
   //  cout<<Command[1];
@@ -75,11 +75,11 @@ void run (string &comment)
 
     }
     
-            cout<<"\n\t Conratulations . ALL your Commands excuted Successfully!\t\n"<<endl;
             for (auto n:fo)
             {
                 cout<<n;
             }
+            cout<<"\n\t Conratulations . ALL your Commands excuted Successfully!\t\n"<<endl;
     // return p;
         
             cout.flush();
@@ -90,11 +90,10 @@ void run (string &comment)
 int main (int argc,char* argv[])
 {
     
-    string cmd;
+    string cmd="push with autopush gt by Elliot:";
     for(int i=1;i<argc;i++)
     {
         cmd+=argv[i];
-        cout<<argv[i];
     }
     run(cmd);
 
