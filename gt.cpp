@@ -87,10 +87,15 @@ void run (string &comment)
 }
 
 
-int main (void)
+int main (int argc,char* argv[])
 {
     
-    string cmd="test";
+    string cmd;
+    for(int i=1;i<argc;i++)
+    {
+        cmd+=argv[i];
+        cout<<argv[i];
+    }
     run(cmd);
 
 
