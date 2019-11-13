@@ -11,7 +11,7 @@ g++ -std=c++11 -pthread a.cpp
 #### 代码1
 
 ```#include <iostream>
-#include <stdlib.h>
+#include <stdlib.h>v
 #include <thread>
 
 using namespace std;
@@ -265,3 +265,13 @@ git branch
 >>> *master
 git push origin master:my_remote_new_branch
 #远端即可创建新的分支my_remote_new_branch,提交本地修改
+
+### 2019.11.13 9:32
+
+``` std::for_each(arr.begin(), arr.end(), func);```
+
+ 比较有用的for_each 用法
+
+ ```for (auto n:Original)```
+
+ C++ 11 新的for
