@@ -71,8 +71,18 @@ void run (string &comment)
     {
         int i;
         cout<<cmd<<endl;
-        i=system(cmd.c_str());
+        system(cmd.c_str())>>i;
 
+        if(i != -1)
+        {
+            cout<<"\n\t Conratulations . One Command excuted Successfully!\t\n"<<endl;
+        }
+        else
+        {
+            cout<<"\n\t Saddly  .your Command excuted failed !\t\n"<<endl;
+            cout<<"status code is \t"<<i<<"  and program will ternimated! Bye \t\n"<<endl;
+            exit(-1);
+        }
     }
     
             cout<<"\n\t Conratulations . ALL your Commands excuted Successfully!\t\n"<<endl;
