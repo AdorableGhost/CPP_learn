@@ -43,7 +43,7 @@ int main()
         else{
             break;
         }
-        
+
         cout<<"Breaking...."<<endl;
     }
 
@@ -116,7 +116,7 @@ int main()
         pt[z]->detach();
 
     }
-    
+
     cout<<"Finally count is \t"<<count<<endl;
     cout<<"Used "<<n <<"threads"<<endl;
 
@@ -158,7 +158,7 @@ int main()
         pt[z]->detach();
 
     }
-    
+
     cout<<"Finally count is \t"<<count<<endl;
     cout<<"Used "<<n <<"threads"<<endl;
 
@@ -183,7 +183,7 @@ int main()
 <li> Iterator  (迭代器)
 <li> Container (容器) array
 <li> Alogrithm (算法)
-<li> Adapters (配接器) 用来实现容器之间的转接<br> 
+<li> Adapters (配接器) 用来实现容器之间的转接<br>
  面向过程--》面向对象-》基于对象-》泛型
 
 #### 代码
@@ -244,7 +244,7 @@ int main(void)
 ### 六大组件
 -容器 （container)
 
--算法Algorithm 
+-算法Algorithm
 
 -迭代器 （iterator）
 
@@ -261,8 +261,7 @@ git push origin 本地分支:远端希望创建的分支
 
 例如git下来的分支为master
 
-git branch
->>> *master
+git branch master
 git push origin master:my_remote_new_branch
 #远端即可创建新的分支my_remote_new_branch,提交本地修改
 
@@ -275,3 +274,107 @@ git push origin master:my_remote_new_branch
  ```for (auto n:Original)```
 
  C++ 11 新的for
+
+ ## Missing lastnight
+
+#### array
+``` array <int ,5>={1,2,3,4,5};```
+-静态数组，栈上
+#### vector 动态数组 堆上
+  ```vector <int> mv;
+   mv.push_back()
+   ```
+   -不需要变长，容量较小，array 需要变长，容量较大，用vector
+
+#### tuple 可以存储不同的数据类型
+
+#### list 适合经常插入，经常删除的情况
+- 35.20
+
+#### list 容器
+
+-list容器是无序容器
+
+-list 容器只能通过迭代器访问。通过++ -- 遍历
+
+-list容器可以使用remove（）方法删除元素，
+
+-可以同时正向和反向查找
+
+-可以使用sort()函数排序
+
+-可以使用merge 合并，但是合并之前必须排序
+
+-可以使用unique()函数删除重复项，删除前必须排序。
+
+--merge (使)合并，结合，并入;相融;融入;渐渐消失在某物中
+
+#### set 容器 （红黑树容器）
+
+-set容器不能有重复项，重复的会被舍弃
+-set容器会自动排序
+-set 用insert插入元素
+-set可以用find（）函数查找位置
+
+循环加栈
+
+
+### algorithm 算法
+
+find（）函数可以查找数组、容器中的元素。
+
+for_each(); 遍历每一个元素。
+
+multiset和set差不多，但是允许重复元素。
+
+迭代器本质是智能指针。
+
+### Iterator
+![](iterator.jpg)
+#### 仿函数
+
+```auto ifind=find_if(mylist.bengin(),mylisy.end(),bindlst(greater<int>(),3));```
+
+bindlst 需要头文件 funtional   ```#include <functional>```
+
+```bindlst(greater<int>(),3);```  绑定一个函数。 ```greater<int>() ```  是一个仿函数（functional)  是一个重载了（）的类/结构 体 ，可以用来实现一定的算法策略。
+
+仿函数例子：
+``` #include <iostream>
+#include <list>
+#include <functional>
+#include <array>
+#include <algorithm>
+
+using namespace std;
+
+
+class shuchu {
+  public:
+
+  void operator()(int x)
+  {
+    std::cout<<x<<endl;
+  }
+};
+
+
+
+ int main(int argc, char const *argv[]) {
+  /* code */
+
+  // array<int,5>array1({1,2,3,4,5});
+  list <int>ls1;
+  ls1.push_back(1);
+   ls1.push_back(3);
+    ls1.push_back(5);
+     ls1.push_back(7);
+      ls1.push_back(9);
+  auto ib=ls1.begin();
+  auto ie=ls1.end();
+  for_each(ib,ie,shuchu());
+  cin.get();
+  return 0;
+}
+
+```
