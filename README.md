@@ -58,18 +58,18 @@ int main()
 
 <li> 关于thread类的内部成
 
-|关键字|详细解释|
-|--|--|
-|id|Thread的iｄ|  
-|native_handle_type | native_handle_type|
-|operator=|Move massive Thread|
-|get_id|get Thread ID|
-|joinable|get if joinable|
-|join|join thread|
-|detach|detach thread|
-|swap |swap thread|
-|native_handle|get native handle|
-|hardware_concurrency[static]|Detect hardware concurrency (public static function)|
+| 关键字                       | 详细解释                                             |
+| ---------------------------- | ---------------------------------------------------- |
+| id                           | Thread的iｄ                                          |
+| native_handle_type           | native_handle_type                                   |
+| operator=                    | Move massive Thread                                  |
+| get_id                       | get Thread ID                                        |
+| joinable                     | get if joinable                                      |
+| join                         | join thread                                          |
+| detach                       | detach thread                                        |
+| swap                         | swap thread                                          |
+| native_handle                | get native handle                                    |
+| hardware_concurrency[static] | Detect hardware concurrency (public static function) |
 
 ![](1.jpg)
 
@@ -378,3 +378,29 @@ class shuchu {
 }
 
 ```
+
+### 2019.11.15  6.wmv STL Bug 迭代器
+
+-智能指针有一个_Ptr属性，可以打印里面的指针。
+
+-STL 有bug 先访问迭代器的_Ptr属性，再访问迭代器指针正常，但是反过来会出错。
+
+-分行打印就没有问题。
+
+
+### 2019.11.15  7.wmv 栈队列双端队列优先队列
+
+#### stack 关键字可以构建栈
+-用法
+
+```stack <mystack>;  //声明一个栈```
+```mystack.push(num); //压栈```
+```mystack.pop(); //出栈```
+```mystack.top(); //获取第一个元素```
+
+#### queue  队列
+
+-queue 英 [kjuː]   美 [kjuː]  
+
+n.(人、汽车等的)队，行列;(储存的数据)队列
+v.(人、车等)排队等候;(使)排队;列队等待
