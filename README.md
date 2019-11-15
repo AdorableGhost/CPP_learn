@@ -8,7 +8,7 @@ g++ -std=c++11 -pthread a.cpp
 ```
 <li>QT Creator 编译带&ltthread&gt的CPP有ＢＵＧ，暂时不知道怎么去除！
 
-#### 代码1
+####  代码1
 
 ```#include <iostream>
 #include <stdlib.h>v
@@ -432,6 +432,7 @@ class shuchu {
 ### 2019.11.15  7.wmv 栈队列双端队列优先队列
 
 #### stack 关键字可以构建栈
+
 -用法
 
 ```stack <mystack>;  //声明一个栈```
@@ -439,9 +440,128 @@ class shuchu {
 ```mystack.pop(); //出栈```
 ```mystack.top(); //获取第一个元素```
 
+
+stack成员函数示例
+-size( ) :返回栈中元素个数
+-top( ) :返回栈顶的元素
+-pop( ) :从栈中取出并删除元素
+-push(e) :向栈中添加元素e
+-empty( ) :栈为空时返回true
+
+
+
 #### queue  队列
 
 -queue 英 [kjuː]   美 [kjuː]  
 
 n.(人、汽车等的)队，行列;(储存的数据)队列
 v.(人、车等)排队等候;(使)排队;列队等待
+
+-queue 需要头文件 \<queue>
+
+-从网上拔来的Queue
+
+[queue详解](queue.md)
+
+<h2>queue 操作</h2>
+queue 和 stack 有一些成员函数相似，但在一些情况下，工作方式有些不同：<br>
+<ul>
+<li>
+front()：返回 queue 中第一个元素的引用。如果 queue 是常量，就返回一个常引用；如果 queue 为空，返回值是未定义的。</li>
+<li>
+back()：返回 queue 中最后一个元素的引用。如果 queue 是常量，就返回一个常引用；如果 queue 为空，返回值是未定义的。</li>
+<li>
+push(const T&amp; obj)：在 queue 的尾部添加一个元素的副本。这是通过调用底层容器的成员函数 push_back() 来完成的。</li>
+<li>
+push(T&amp;&amp; obj)：以移动的方式在 queue 的尾部添加元素。这是通过调用底层容器的具有右值引用参数的成员函数 push_back() 来完成的。</li>
+<li>
+pop()：删除 queue 中的第一个元素。</li>
+<li>
+size()：返回 queue 中元素的个数。</li>
+<li>
+empty()：如果 queue 中没有元素的话，返回 true。</li>
+<li>
+emplace()：用传给 emplace() 的参数调用 T 的构造函数，在 queue 的尾部生成对象。</li>
+<li>
+swap(queue&lt;T&gt; &amp;other_q)：将当前 queue 中的元素和参数 queue 中的元素交换。它们需要包含相同类型的元素。也可以调用全局函数模板&nbsp;swap() 来完成同样的操作。</li>
+</ul>
+<br>
+queue&lt;T&gt; 模板定义了拷贝和移动版的 operator=()，对于所保存元素类型相同的 queue 对象，它们有一整套的比较运算符，这些运算符的工作方式和 stack 容器相同。<br>
+
+#### deque 双端队列
+
+-deque 可以从头部push_front()和尾部push_back()插入 
+-deque 可以使用迭代器 可以使用 迭代器+n 访问删除
+-deque 可以pop_front() pop_back() 从头部和尾部 删除元素。
+
+(1)    构造函数
+
+deque():创建一个空deque
+
+deque(int nSize):创建一个deque,元素个数为nSize
+
+deque(int nSize,const T& t):创建一个deque,元素个数为nSize,且值均为t
+
+deque(const deque &):复制构造函数
+
+(2)    增加函数
+
+void push_front(const T& x):双端队列头部增加一个元素X
+
+void push_back(const T& x):双端队列尾部增加一个元素x
+
+iterator insert(iterator it,const T& x):双端队列中某一元素前增加一个元素x
+
+void insert(iterator it,int n,const T& x):双端队列中某一元素前增加n个相同的元素x
+
+void insert(iterator it,const_iterator first,const_iteratorlast):双端队列中某一元素前插入另一个相同类型向量的[forst,last)间的数据
+
+(3)    删除函数
+
+Iterator erase(iterator it):删除双端队列中的某一个元素
+
+Iterator erase(iterator first,iterator last):删除双端队列中[first,last）中的元素
+
+void pop_front():删除双端队列中最前一个元素
+
+void pop_back():删除双端队列中最后一个元素
+
+void clear():清空双端队列中最后一个元素
+
+(4)    遍历函数
+
+reference at(int pos):返回pos位置元素的引用
+
+reference front():返回手元素的引用
+
+reference back():返回尾元素的引用
+
+iterator begin():返回向量头指针，指向第一个元素
+
+iterator end():返回指向向量中最后一个元素下一个元素的指针（不包含在向量中）
+
+reverse_iterator rbegin():反向迭代器，指向最后一个元素
+
+reverse_iterator rend():反向迭代器，指向第一个元素的前一个元素
+
+(5)    判断函数
+
+bool empty() const:向量是否为空，若true,则向量中无元素
+
+(6)    大小函数
+
+Int size() const:返回向量中元素的个数
+
+int max_size() const:返回最大可允许的双端对了元素数量值
+
+(7)    其他函数
+
+void swap(deque&):交换两个同类型向量的数据
+
+void assign(int n,const T& x):向量中第n个元素的值设置为x
+ 
+
+[deque网上扒来的](deque.md)
+
+#### priority_que 优先级队列 （不太理解）
+
