@@ -242,6 +242,7 @@ int main(void)
 -STL 抽象出的这些基本属性（concept）成功的将算法和数据结构相分离，在没有效率损失的前提下，获得了极大的弹性！
 
 ### 六大组件
+
 -容器 （container)
 
 -算法Algorithm
@@ -275,7 +276,47 @@ git push origin master:my_remote_new_branch
 
  C++ 11 新的for
 
- ## Missing lastnight
+### 2019.11.03 23:46
+
+#### typename
+- 成员函数也可以是模板-
+- typename 作为类型前的标识符号-
+
+
+ ```template <class T>
+class MyClass
+        typename T::SubType *  ptr; //typename 直接指示 T::SubType * 为一个类型 没有typename 会被解析为
+            // T域中的 SubType 静态成员 乘于（*） ptr.
+        ...
+        };
+ ```
+
+
+-typename 的第二个作用：在模板声明中替换class -
+
+  ```template <typename T > class Myclass;```
+
+
+
+####  static_cast 只有当类型转换有所定义，转换才会成功。（明确转换类型）
+####  dynamic_cast 将多态类型向下转换\<downcast> 被转换的类必须有虚函数。否则失败
+####  const_cast 用于转换为const 值
+####  reinterpret_cast 多用于指针个的转换
+####  C语言的小括号（）可以替换除dymanic_cast 外的所有静态转换函数，无法明确显示使用他们的切确理由
+
+### 容器的概念
+-用于管理一组元素
+![](container.jpg)
+
+#### 容器的分类
+##### -序列式容器\(Sequence containers)
+-每个元素都有固定位置--去结余插入时机和地点，和元素值无关
+-vector list  deque
+##### 关联式容器 \(Associated containers)
+-元素取决于特定的排序准则，和插入顺序无关
+-set multiset map multimap
+![](container1.jpg)
+
 
 #### array
 ``` array <int ,5>={1,2,3,4,5};```
@@ -289,7 +330,7 @@ git push origin master:my_remote_new_branch
 #### tuple 可以存储不同的数据类型
 
 #### list 适合经常插入，经常删除的情况
-- 35.20
+
 
 #### list 容器
 
