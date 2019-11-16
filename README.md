@@ -560,8 +560,12 @@ void swap(deque&):交换两个同类型向量的数据
 
 void assign(int n,const T& x):向量中第n个元素的值设置为x
  
-
 [deque网上扒来的](deque.md)
 
 #### priority_que 优先级队列 （不太理解）
 
+- 优先队列是按照堆来实现的
+
+### 红黑树容器
+
+#### set 是一个红黑树
