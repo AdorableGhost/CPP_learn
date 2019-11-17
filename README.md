@@ -490,9 +490,9 @@ queue&lt;T&gt; 模板定义了拷贝和移动版的 operator=()，对于所保�
 
 #### deque 双端队列
 
--deque 可以从头部push_front()和尾部push_back()插入 
--deque 可以使用迭代器 可以使用 迭代器+n 访问删除
--deque 可以pop_front() pop_back() 从头部和尾部 删除元素。
+- deque 可以从头部push_front()和尾部push_back()插入 
+- deque 可以使用迭代器 可以使用 迭代器+n 访问删除
+- deque 可以pop_front() pop_back() 从头部和尾部 删除元素。
 
 (1)    构造函数
 
@@ -569,3 +569,119 @@ void assign(int n,const T& x):向量中第n个元素的值设置为x
 ### 红黑树容器
 
 #### set 是一个红黑树
+
+
+### set map multi-map 红黑树
+
+#### set的高级用法
+- 红黑树，处理纯字符串比较少，处理字符串及对象比较多。
+- pair 复合集合
+- 二叉树查找依赖于有序。 字符串可以实现有序。
+- pair 也是个类模板！起到获取插入返回值（boolean)的作用。两个参数，第一个类型，第二个是比大小的方法
+- set的每一个节点就是一个节点
+- 二叉树的实现语法一直在在在变 。VS2013 能过的 VS2017 就不能过了！~！！mingw 32又能过，代码如下：
+- set 不能包含同样的值
+-  0-35:40
+```#include <iostream>
+#include <set>
+#include <string>
+#include <stdio.h>
+#include <string.h>
+
+using namespace std;
+
+class strless
+{
+public:
+
+    bool operator () (const char* p,const char* p1)
+    {
+        return strcmp(p, p1) < 0;
+    }
+
+private:
+
+};
+
+
+
+int main(void)
+{
+    const char* cmd[] = { "nihao","spectrc","calc","good" };
+    set<const char *, strless>myset(cmd,cmd+4,strless());
+    auto ib = myset.begin();
+    auto ie = myset.end();
+
+    for (auto i : myset)
+    {
+        cout << i << endl;
+    }
+
+
+    return 0;
+
+}
+```
+#### multiset
+- 可以插入相同的值
+- multiset 的每一个节点是一个链表
+- 练习代码如下（mingw 32编译）：
+```#include <iostream>
+#include <set>
+#include <string.h>
+
+using namespace std;
+
+class stu{
+public:
+    int id;
+    char p[100];
+};
+
+class stuless
+{
+public:
+
+    bool operator ()(const stu &st1,const stu &st2)
+    {
+        return st1.id<st2.id;
+    }
+
+};
+
+
+
+int main()
+{
+    stu student[3]={
+        {99,"zhuang"},
+        {15,"li"},
+        {3,"ooooo"}
+    };
+
+    stu newstu;
+    newstu.id=100782;
+    strcpy(newstu.p,"nimeide");
+    multiset<stu,stuless> stu1 (student,student+3,stuless());
+    stu1.insert(newstu);
+    strcpy(newstu.p,"SBSBSBSB");
+    stu1.insert(newstu);
+     strcpy(newstu.p,"luo liuo");
+    stu1.insert(newstu);
+
+    for(auto i:stu1)
+    {
+        cout<< "\t"<<i.id<<"\t"<<i.p<<endl;
+    }
+
+    return 0;
+
+}
+```
+- 输出
+- 
+![输出结果](cout1.jpg)
+
+#### map  映射 multimap 多层映射 &nbsp;9.wmv 53:41
+- map 也是 红黑树
+- map 需要头文件 \<map>
