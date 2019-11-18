@@ -678,10 +678,102 @@ int main()
 
 }
 ```
+
 - 输出
+
 - 
+
 ![输出结果](cout1.jpg)
 
 #### map  映射 multimap 多层映射 &nbsp;9.wmv 53:41
-- map 也是 红黑树
+
+- map 也是 红黑树，但是能同时映射多个数据
 - map 需要头文件 \<map>
+- 映射都是左边映射到右边。访问时用右边访问左边。可以通过对等的映射查找
+- 示例代码如下：
+
+```#include <iostream>
+#include <string>
+#include <map>
+#include <stdlib.h>
+
+using namespace std;
+
+class worker{
+
+public:
+    int id;
+    string name;
+    string work;
+};
+
+
+class winfo{
+public:
+    int randid;
+     worker w1;
+
+};
+
+
+int main()
+{
+    system("chcp 65001");
+
+    winfo warr[]={
+
+        {1,{10,"李四","mugong"}},
+         {2,{9,"张三","mugong"}},
+         {8,{5,"wangermazi","mugong"}},
+         {20,{3,"gg","mugong"}},
+         {30,{1,"ww张三","mugong"}}
+    };
+
+    map <int,worker> m;
+    for(auto i : warr)
+    {
+        static int n=0;
+        m[warr[n].randid]=warr[n].w1;
+        n++;
+    }
+
+    auto ib=m.begin();
+    auto ie=m.end();
+
+    for(;ib!=ie;ib++)
+    {
+        cout<<"\t winfo.randid is \t"<<(*ib).first<<" worker info is \t"<<(*ib).second.id<<"\t"<<(*ib).second.name
+           <<"\t"<<(*ib).second.work<<"\t"<<endl;
+    }
+
+    return 0;
+}
+```
+
+- 输出
+  
+  ![输出结果](cout2.jpg)
+
+
+#### pair 关键字 &nbsp;9.wmv 01:23:15 
+
+- 用于插入 复杂映射类型
+- multimap set map 每一个节点就是一个 pair
+- 用法：
+  
+```multimap <const char*,int>m;
+m.insert(pair<const char*,int> ("第一个"),1);
+m.insert(pair<const char*,int> ("第二个"),2);
+m.insert(pair<const char*,int> ("第三个"),5);
+m.insert(pair<const char*,int> ("第四个"),8);
+
+```
+#### hash_set 和hash_map &nbsp;9.wmv 01:33:10
+
+- 作用：把比较大的数据抽象得比较小
+- hash_set 不会自动排序 查找时一次就足够了。而set需要 log2n 次
+- 适用于精确查找，一次就能找到。比二分查找要快
+- hash_set 的经典用法 判断数据是否相等
+- hash_set、hash_map 不会自动排序 
+- hash算法依赖于hash_table
+
