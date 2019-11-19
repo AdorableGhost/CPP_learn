@@ -777,3 +777,32 @@ m.insert(pair<const char*,int> ("第四个"),8);
 - hash_set、hash_map 不会自动排序 
 - hash算法依赖于hash_table
 
+#### equal_range()
+- 找到红黑树的链表节点，遍历所有节点
+- first为链表的首节点，second 为最后一个空节点
+
+### string 本质是一个容器
+
+- C语言中 下列代码是错误的：
+``` 
+char str[54];
+str="123456";
+```
+
+- erase() 函数可删除字符串。 str1.erase(3,4); erase(str1.begin(),str.begin()+2);
+
+- replace() 替换函数 str1.replace(3,3,"China");str1.replace(3,"China");
+str1.replace(3,"China"); replace (位置，长度，字符串)；
+- str.find() 查找字符串，找到第一个匹配的字符的位置，找不到返回-1；
+- rfind（） 反向查找，返回找的的第一个的匹配的字符串的位置。找不到返回-1；
+
+- find_first_of () 找到第一个并返回所在位置。
+
+- find_first_not_of () 找到第一个不匹配的并返回所在位置。
+
+- find_last_of () 找到最后一个匹配的并返回所在位置。
+
+- find_last_not_of () 找到最后一个不匹配的并返回所在位置。
+
+##### 网上扒来的 string 介绍
+- [String](string.md)
