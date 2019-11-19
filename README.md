@@ -805,4 +805,5 @@ str1.replace(3,"China"); replace (位置，长度，字符串)；
 - find_last_not_of () 找到最后一个不匹配的并返回所在位置。
 
 ##### 网上扒来的 string 介绍
+
 - [String](string.md)
