@@ -811,10 +811,15 @@ str1.replace(3,"China"); replace (位置，长度，字符串)；
 
 
 ### GPU编程 
+
 - 可以利用模板类实现对容器的操作（利用重载括号的方式）
+
 #### Lamda 表达式 C++ AMP 编程
+
 - 函数包装器(LAMDA 表达式，类似JS里面的匿名函数) : 需要头文件 <functional>
+
 - GPU 强项在于并行计算，CPU强项在于单点计算
+
 ```
 auto func=[](int a ,int b){ return a+b;};
 
@@ -863,3 +868,22 @@ int main(void)
 	cin.get();
 }
 ```
+
+#### lambda 表达式
+- 网上扒来的lambda 表达式
+[Lambda 表达式](Lambda.md)
+-lambda 表达式的作用：C++ 11 中的 Lambda 表达式用于定义并创建匿名的函数对象，以简化编程工作。
+- lambda 语法形式：[函数对象参数] (操作符重载函数参数) mutable 或 exception 声明 -> 返回值类型 {函数体}
+
+
+#### STL算法
+- for_each ....
+
+- auto i= find_if (myvector.begin(),myvector.end(),[](int v){return v>4;}); //如果找到myvector 中第一个大于四的数据则返回那个数据所在位置的迭代器，否则返回myvector.end();
+
+- auto i= find_if_not (myvector.begin(),myvector.end(),[](int v){return v>4;}); //如果找到myvector 中第一个小于于四的数据则返回那个数据所在位置的迭代器，否
+则返回myvector.end();
+
+- sort()  仿函数用于排序。
+
+
