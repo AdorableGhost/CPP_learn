@@ -825,17 +825,19 @@ auto func=[](int a ,int b){ return a+b;};
 
 for_each(myvector.begin(),myvector.end(),[](int a){return a*=2;cout<<a<<endl;});
 ```
+
 - C++ AMP 计算演示 (VS 2017中编译失败)
+
 - VS2017 中错误信息：
-```
 
 ```
 严重性	代码	说明	项目	文件	行	禁止显示状态
 错误	C3861	“_Access”: 找不到标识符	GPU_hello	c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.15.26726\include\amp.h	2616	
 
 严重性	代码	说明	项目	文件	行	禁止显示状态
-错误	C3588	在 amp 限制代码中不支持从“unknown-type”转换为“void *”	GPU_hello	c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.15.26726\include\amp.h	2616	
+错误	C3588	在 amp 限制代码中不支持从“unknown-type”转换为“void *”	GPU_hello	c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.15.26726\include\amp.h	2616
 
+```
 
 ```
 #include <amp.h>
@@ -869,14 +871,19 @@ int main(void)
 }
 ```
 
+
 #### lambda 表达式
+
 - 网上扒来的lambda 表达式
+
 [Lambda 表达式](Lambda.md)
 -lambda 表达式的作用：C++ 11 中的 Lambda 表达式用于定义并创建匿名的函数对象，以简化编程工作。
+
 - lambda 语法形式：[函数对象参数] (操作符重载函数参数) mutable 或 exception 声明 -> 返回值类型 {函数体}
 
 
 #### STL算法
+
 - for_each ....
 
 - auto i= find_if (myvector.begin(),myvector.end(),[](int v){return v>4;}); //如果找到myvector 中第一个大于四的数据则返回那个数据所在位置的迭代器，否则返回myvector.end();
