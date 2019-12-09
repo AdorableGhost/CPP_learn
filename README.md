@@ -491,7 +491,7 @@ queue&lt;T&gt; 模板定义了拷贝和移动版的 operator=()，对于所保�
 
 #### deque 双端队列
 
-- deque 可以从头部push_front()和尾部push_back()插入 
+- deque 可以从头部push_front()和尾部push_back()插入
 - deque 可以使用迭代器 可以使用 迭代器+n 访问删除
 - deque 可以pop_front() pop_back() 从头部和尾部 删除元素。
 
@@ -682,7 +682,7 @@ int main()
 
 - 输出
 
-- 
+-
 
 ![输出结果](cout1.jpg)
 
@@ -752,16 +752,16 @@ int main()
 ```
 
 - 输出
-  
+
   ![输出结果](cout2.jpg)
 
 
-#### pair 关键字 &nbsp;9.wmv 01:23:15 
+#### pair 关键字 &nbsp;9.wmv 01:23:15
 
 - 用于插入 复杂映射类型
 - multimap set map 每一个节点就是一个 pair
 - 用法：
-  
+
 ```multimap <const char*,int>m;
 m.insert(pair<const char*,int> ("第一个"),1);
 m.insert(pair<const char*,int> ("第二个"),2);
@@ -775,7 +775,7 @@ m.insert(pair<const char*,int> ("第四个"),8);
 - hash_set 不会自动排序 查找时一次就足够了。而set需要 log2n 次
 - 适用于精确查找，一次就能找到。比二分查找要快
 - hash_set 的经典用法 判断数据是否相等
-- hash_set、hash_map 不会自动排序 
+- hash_set、hash_map 不会自动排序
 - hash算法依赖于hash_table
 
 #### equal_range()
@@ -785,7 +785,7 @@ m.insert(pair<const char*,int> ("第四个"),8);
 ### string 本质是一个容器
 
 - C语言中 下列代码是错误的：
-``` 
+```
 char str[54];
 str="123456";
 ```
@@ -810,7 +810,7 @@ str1.replace(3,"China"); replace (位置，长度，字符串)；
 - [String](string.md)
 
 
-### GPU编程 
+### GPU编程
 
 - 可以利用模板类实现对容器的操作（利用重载括号的方式）
 
@@ -832,7 +832,7 @@ for_each(myvector.begin(),myvector.end(),[](int a){return a*=2;cout<<a<<endl;});
 
 ```
 严重性	代码	说明	项目	文件	行	禁止显示状态
-错误	C3861	“_Access”: 找不到标识符	GPU_hello	c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.15.26726\include\amp.h	2616	
+错误	C3861	“_Access”: 找不到标识符	GPU_hello	c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.15.26726\include\amp.h	2616
 
 严重性	代码	说明	项目	文件	行	禁止显示状态
 错误	C3588	在 amp 限制代码中不支持从“unknown-type”转换为“void *”	GPU_hello	c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.15.26726\include\amp.h	2616
@@ -858,13 +858,13 @@ int main(void)
 	*/
 
 	parallel_for_each(av.extent, [=](index<1> idx) restrict (amp) {av[idx] *= 2; });
-	
+
 	for (int i = 0; i < 10; i++)
 	{
 
 		cout << "\t" << av[i] << endl;
 	}
-	
+
 
 
 	cin.get();
@@ -923,7 +923,7 @@ int main(void)
 - 消费者无需修改就可以接纳新产品，缺点是当产品修改时，工厂类也要做相应的修改
 >>>>>>> 47b899257b7f4425849d9fa5a40c3f30699f087a
 =======
-### 设计模式 
+### 设计模式
 
 
 
@@ -1003,6 +1003,7 @@ int main(void)
 
 - 一级传达另一级，知道没有上级，直到最高级
 - [责任链模式示例](duty_mode.cpp)
-  
-  
+
+
 >>>>>>> a04d818ed1530b3d0e6287cdc07815c5664fb049
+
