@@ -1020,3 +1020,14 @@ int main(void)
 
 #### 算法的衡量标准
 ![](sfbz.jpg)
+
+### Boost和算法
+
+#### boost Array 第一只boost 程序
+
+-  使用boost 必须下载安装适当的编译好的包。
+- 各个VS 使用的版本不一样
+- Linux只能自己编译
+- boost 的命名空间为boost
+
+[boost第一个程序（array)](boost_CPP.cpp)
