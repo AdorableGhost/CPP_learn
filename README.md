@@ -349,7 +349,7 @@ class MyClass
 
 -可以使用unique()函数删除重复项，删除前必须排序。
 
---merge (使)合并，结合，并入;相融;融入;渐渐消失在某物中
+- merge (使)合并，结合，并入;相融;融入;渐渐消失在某物中
 
 #### set 容器 （红黑树容器）
 
@@ -1031,3 +1031,6 @@ int main(void)
 - boost 的命名空间为boost
 
 [boost第一个程序（array)](boost_CPP.cpp)
+
+#### boost 库的学习 boost_array_bind_fun_ref
+
