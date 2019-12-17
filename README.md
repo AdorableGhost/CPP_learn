@@ -1034,4 +1034,24 @@ int main(void)
 
 #### boost 库的学习 boost_array_bind_fun_ref
 
+##### std 方式
 
+- 绑定已有函数增加新的参数但是不改变原来的函数(std 方式)
+- 使用：
+  - 1执行操作的类继承自 std::binary_function<>
+  - 2.使用bind1st()
+- 代码：
+  - [bind1st示例代码](bind1st.cpp)
+
+##### boost方式
+
+- [boost::bind示例代码](boostbind.cpp)
+- [boost详解](boostbind.md)
+
+#### boost::function 库
+
+- boost::function 库提供了一个类模板 boost::function。它是一个仿函数类，用于封装各种函数指针通常用来和bind结合起来使用。当仿函数没有绑定任何指针时，会抛出 boost::bad_function_call异常。
+
+#### boost::ref
+
+- 不能拷贝对象用boost::ref()
