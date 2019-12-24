@@ -1055,3 +1055,10 @@ int main(void)
 #### boost::ref
 
 - 不能拷贝对象用boost::ref()
+
+
+#### RAII 
+- 避免内存泄漏，把堆上的内存当做栈使用
+
+#### 智能指针 smartpointers 库
+

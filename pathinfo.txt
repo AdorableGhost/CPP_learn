@@ -1,0 +1,43 @@
+简单配置nginx使之支持pathinfo
+只需要修改3个地方就可以了，亲测成功，看代码有注解
+location ~ \.php { #去掉$
+root E:/phpStudy/WWW/tp/public/;
+fastcgi_pass 127.0.0.1:9000;
+fastcgi_index index.php;
+fastcgi_split_path_info ^(.+\.php)(.*)$; #增加这一句
+fastcgi_param PATH_INFO $fastcgi_path_info; #增加这一句
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+include fastcgi_params;
+
+下面是我完整的一个虚拟域名配置
+server {
+listen 80;
+server_name www.cs.com;
+root "E:/phpStudy/WWW/cs/public/";
+location / {
+index index.html index.htm index.php l.php;
+autoindex on;
+try_files $uri $uri/ /index.php?s=$uri&$args;
+}
+
+
+
+
+error_page 500 502 503 504 /50x.html;
+location = /50x.html {
+root html;
+}
+location ~ \.php { #去掉$
+root E:/phpStudy/WWW/cs/public/;
+fastcgi_pass 127.0.0.1:9000;
+fastcgi_index index.php;
+fastcgi_split_path_info ^(.+\.php)(.*)$; #增加这一句
+fastcgi_param PATH_INFO $fastcgi_path_info; #增加这一句
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+include fastcgi_params;
+
+}
+
+}
+
+ 如果要看tinkphp5的nginx配置文件的话 这里有位大神给出了具体方式 传送门：http://www.thinkphp.cn/topic/40391.html

@@ -146,3 +146,144 @@ int main(int argc,char** argv)
 ```
 
 ### 控件
+
+
+### 消息基础
+- 代码
+- dwin.hpp
+```
+    #ifndef DWIN_H
+#define DWIN_H
+
+#include <QWidget>
+#include  <QPushButton>
+
+class DWin : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit DWin(QWidget *parent = nullptr);
+    bool event(QEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void closeEvent(QCloseEvent *event);
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
+    QPushButton *pb;
+signals:
+
+public slots:
+};
+
+#endif // DWIN_H
+```
+- dwin.cpp
+
+```
+#include "dwin.h"
+#include <iostream>
+#include <QApplication>
+#include <QEvent>
+#include <QDebug>
+#include <QMouseEvent>
+#include <QKeyEvent>
+
+DWin::DWin(QWidget *parent) : QWidget(parent)
+{
+    this->setMouseTracking(true);
+    pb=new QPushButton("OK",this);
+    pb->setDefault(true);
+    //Lamda 表达式。。。。
+    connect(pb,&QPushButton::clicked,[](){
+        qDebug()<<"OK Pushed ............";
+    });
+
+}
+/*
+ * QAppkication 先得到消息 -》具体负责每个窗口的event（）获取-》具体负责每项消息处理的虚函数
+ *我们可以做的：
+ * 1》可以重载具体的虚函数来实现自己的功能
+ * 2》可以重载event() 函数用来处理或者截取消息
+ */
+
+// event 管理所有的消息，用来截断所有消息 return ture ; 就能截取消息
+
+bool DWin::event(QEvent *event)
+{
+
+return QWidget::event(event);
+}
+
+void DWin::mouseReleaseEvent(QMouseEvent *event)
+{
+    qDebug()<<"Your mouse have been release!";
+}
+
+
+
+void DWin::mousePressEvent(QMouseEvent *event)
+{
+    QPoint pt=event->pos();
+    qDebug()<<pt;
+    if (event->button() == Qt::LeftButton)
+    {
+        qDebug()<<"Left button have been pressed!";
+    }
+
+   if(event->modifiers() == Qt::ShiftModifier)
+   {
+       qDebug()<<"Shift Pressed LOL...";
+   }
+}
+
+
+void  DWin::keyPressEvent(QKeyEvent *event)
+{
+    //返回大写的字母ASCII代码！
+    auto mod=event->modifiers();
+    auto key=event->key();
+    qDebug()<<(char)key<<"   "<<mod;
+}
+void  DWin::keyReleaseEvent(QKeyEvent *event)
+{
+
+}
+void  DWin::mouseMoveEvent(QMouseEvent *event)
+{
+    static long i;
+
+    //默认的是鼠标按下后移动
+    //设置窗口类 setMouseTracking(true) 后可实现鼠标不按下就接受移动消息！
+    qDebug()<<"mouse Moved"<<i++;
+}
+
+void DWin::closeEvent(QCloseEvent *event)
+{
+    qDebug()<<"Closed Window";
+}
+void DWin::showEvent(QShowEvent *event)
+{
+ qDebug()<<"showing Window";
+}
+void DWin::hideEvent(QHideEvent *event)
+{
+    qDebug()<<"hidding Window";
+
+}
+
+int main (int argc ,char ** argv)
+{
+    QApplication app(argc,argv);
+
+    DWin w;
+    w.show();
+
+    return app.exec();
+}
+
+```
+
+### QT 消息中级
