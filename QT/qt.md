@@ -287,3 +287,5 @@ int main (int argc ,char ** argv)
 ```
 
 ### QT 消息中级
+
+- eventFilter 截取消息

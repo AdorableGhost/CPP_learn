@@ -1062,3 +1062,91 @@ int main(void)
 
 #### 智能指针 smartpointers 库
 
+
+
+###  类的虚函数表
+- 类有一个虚函数表，存储着所有虚函数的地址。
+- 类总是把虚函数表放在最前面
+- 一种访问类的虚函数的方法（代码如下：）
+- 不管基类中是公有，私有，都不影响子类集成虚函数
+- 虚函数顺序：基类-》子类
+- 多重继承子类会有多个虚函数表，每个虚函数表继承自每个基类的虚函数表
+
+```
+#include <iostream>
+
+using namespace std;
+
+class A
+{
+public:
+
+
+	void virtual a() {
+	
+		std::cout << "A --> a" << endl;
+	}
+
+	void virtual b() {
+
+		std::cout << "A--> b" << endl;
+	}
+
+	void virtual c() {
+
+		std::cout << "A--> c" << endl;
+	}
+private:
+
+};
+
+
+class B :public A
+{
+public:
+	void virtual a()
+	{
+		std::cout << "B--> a" << endl;
+	}
+
+	void virtual b() {
+
+		std::cout << "B--> b" << endl;
+	}
+};
+
+
+typedef  void (*Pfunc) (void);
+
+int main(void)
+{
+	B b;
+	cout << "B is " <<sizeof(b) << endl;
+	
+	Pfunc pfc;
+	for (int i = 0; i < 3; i++)
+	{
+
+		/*	  (&b) 取出B的地址 
+			(int *)(&b) 转换b的地址为int 类型，方便后期访问紧跟着它的内存
+			*(int *)(&b)   取出B里面的内容（虚函数表的地址）
+			(int *) *(int *)(&b) 把虚函数表的地址转换为int类型，方便后期访问紧跟着它的内存
+			(int *) *(int *)(&b) + i  利用地址存储的机制，+1 自动跳过4（8）个字节，访问下一个内存内容，访问存储在虚函数表里面的函数地址
+			(Pfunc)*   将虚函数表李的函数指针地址转换为 pFunc 类型的函数指针地址，方便调用
+					  pfc(); 调用
+			
+
+		*/
+		pfc = (Pfunc)*((int *) *(int *)(&b) + i);
+		pfc();
+	}
+
+
+
+
+	cin.get();
+
+	return 0;
+}
+
+```
