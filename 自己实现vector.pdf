@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [['$','$'], ['\\(','\\)']]}});</script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS": {"availableFonts":["TeX"],"scale": 150}});</script>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+</style>
+
+</head>
+<body>
+<h3 id="%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E5%AE%9E%E7%8E%B0%E7%9A%84vector%E5%8F%AA%E8%83%BD%E5%A4%84%E7%90%86%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE">一个自己实现的Vector(只能处理基本类型数据)</h3>
+<ul>
+<li>string 类型不行</li>
+<li>bool char* int double float long long  等基本类型可用</li>
+<li>使用模板类实现。底层为数组实现。</li>
+</ul>
+<ul>
+<li>dvector.h</li>
+</ul>
+<pre class="hljs"><code><div>#ifndef DVECTOR_H
+#define DVECTOR_H
+#pragma once
+#include &lt;iostream&gt;
+template &lt;class T&gt;
+class dvector
+{
+public:
+    dvector();
+    ~dvector();
+    bool push_back(T);
+    void show();
+
+public:
+    T* p;
+    int len;
+    int real_len;
+
+};
+
+#endif // DVECTOR_H
+</div></code></pre>
+<ul>
+<li>dvector.cpp</li>
+</ul>
+<pre class="hljs"><code><div>#include &quot;dvector.h&quot;
+
+template &lt;class T&gt;
+dvector&lt;T&gt;::dvector()
+{
+    len=real_len =0;
+    p=nullptr;
+}
+
+
+template&lt;class T&gt;
+dvector&lt;T&gt;::~dvector()
+{
+    if(p!=nullptr)
+    {
+        delete []p;
+        p=nullptr;
+    }
+}
+
+template &lt;class T&gt;
+void dvector&lt;T&gt;::show()
+{
+    if(p!=nullptr)
+    {
+        for(int i=0;i&lt;real_len;i++){
+            std::cout&lt;&lt;i&lt;&lt;&quot;\t&quot;&lt;&lt;*(p+i)&lt;&lt;std::endl;
+        }
+
+        std::cout&lt;&lt;&quot;length=&quot;&lt;&lt;real_len&lt;&lt;std::endl;
+    }else {
+
+        std::cout&lt;&lt;&quot;NNNNNNNNNNNNNNNNNNNNNNNNNNo thing&quot;&lt;&lt;std::endl;
+}
+}
+
+
+template&lt;class T&gt;
+bool dvector&lt;T&gt;::push_back(T t){
+
+    if(p==nullptr)
+    {
+        //第一个为空说明只有一个元素
+        p=new T;
+        *p=t;
+        real_len=len=1;
+    }else {
+
+        //第一个不为空说明有多个元素，这时候链表就必须重新分配内存
+        //分配为数组形式
+        T *ptemp = new T[real_len+1];
+        for(int i=0;i&lt;real_len;i++)
+        {
+            *(ptemp+i)=*(p+i);
+
+        }
+        *(ptemp+real_len)=t;
+        delete []p;
+        p=ptemp;
+        real_len+=1;
+        len+=1;
+    }
+
+    return  true;
+
+}
+
+
+int main()
+{
+    //测试基本类型
+    //string 会出错，因为string 不是基本类型，是一种类似 vector 的类模板，其内部的内存操作与基本类型不一样。
+    //1. int
+    dvector&lt;int&gt;* dv1=new dvector&lt;int&gt;;
+    dv1-&gt;push_back(12);
+    dv1-&gt;push_back(15);
+    dv1-&gt;push_back(1995);
+    dv1-&gt;push_back(200);
+    dv1-&gt;push_back(2);
+    dv1-&gt;push_back(1);
+
+    dv1-&gt;show();
+
+    //2. double
+    dvector&lt;double&gt;* dv2=new dvector&lt;double&gt;;
+    dv2-&gt;push_back(12.2);
+    dv2-&gt;push_back(15.3);
+    dv2-&gt;push_back(1995.0220);
+    dv2-&gt;push_back(200.1);
+    dv2-&gt;push_back(2.3);
+    dv2-&gt;push_back(1.9);
+
+    dv2-&gt;show();
+
+    //3. char*
+    dvector&lt;char*&gt;* dv3=new dvector&lt;char*&gt;;
+    dv3-&gt;push_back(&quot;nimei&quot;);
+    dv3-&gt;push_back(&quot;de&quot;);
+    dv3-&gt;push_back(&quot;垃圾&quot;);
+    dv3-&gt;push_back(&quot;95&quot;);
+    dv3-&gt;push_back(&quot;lalala&quot;);
+    dv3-&gt;push_back(&quot;45&quot;);
+
+dv3-&gt;show();
+    return 0;
+}
+
+</div></code></pre>
+<h3 id="%E6%99%9A%E4%B8%8A%E5%AE%8C%E5%96%84-%E5%A2%9E%E5%8A%A0%E4%BA%86-%E5%88%A0-%E6%94%B9-%E6%9F%A5">晚上完善 增加了 删 改 查</h3>
+<pre><code>- 和尹成老师视频里面写的不一样。。自己写的。反正就是不规范就是了
+</code></pre>
+<ul>
+<li>dvector.h</li>
+</ul>
+<pre class="hljs"><code><div>#ifndef DVECTOR_H
+#define DVECTOR_H
+#pragma once
+#include &lt;iostream&gt;
+template &lt;class T&gt;
+class dvector
+{
+public:
+	dvector();
+	~dvector();
+	bool push_back(T);
+	bool del(T);
+	bool modify(T, T);
+	int  search(T t);
+	void show();
+
+public:
+	T* p;
+	int len;
+	int real_len;
+
+};
+
+#endif // DVECTOR_H
+
+</div></code></pre>
+<ul>
+<li>dvector.cpp</li>
+</ul>
+<pre class="hljs"><code><div>#include &quot;dvector.h&quot;
+
+using namespace std;
+
+template &lt;class T&gt;
+dvector&lt;T&gt;::dvector()
+{
+    len=real_len =0;
+    p=nullptr;
+}
+
+
+template&lt;class T&gt;
+dvector&lt;T&gt;::~dvector()
+{
+    if(p!=nullptr)
+    {
+        delete []p;
+        p=nullptr;
+    }
+}
+
+//遍历输出
+template &lt;class T&gt;
+void dvector&lt;T&gt;::show()
+{
+    if(p!=nullptr)
+    {
+        for(int i=0;i&lt;real_len;i++){
+            std::cout&lt;&lt;i&lt;&lt;&quot;\t&quot;&lt;&lt;*(p+i)&lt;&lt;std::endl;
+        }
+
+        std::cout&lt;&lt;&quot;length=&quot;&lt;&lt;real_len&lt;&lt;std::endl;
+    }else {
+
+        std::cout&lt;&lt;&quot;NNNNNNNNNNNNNNNNNNNNNNNNNNo thing&quot;&lt;&lt;std::endl;
+}
+}
+
+//增
+template&lt;class T&gt;
+bool dvector&lt;T&gt;::push_back(T t){
+
+    if(p==nullptr)
+    {
+        //第一个为空说明只有一个元素
+        p=new T;
+        *p=t;
+        real_len=len=1;
+    }else {
+
+        //第一个不为空说明有多个元素，这时候链表就必须重新分配内存
+        //分配为数组形式
+        T *ptemp = new T[real_len+1];
+        for(int i=0;i&lt;real_len;i++)
+        {
+            *(ptemp+i)=*(p+i);
+
+        }
+        *(ptemp+real_len)=t;
+        delete []p;
+        p=ptemp;
+        real_len+=1;
+        len+=1;
+    }
+
+    return  true;
+
+}
+
+//查	  返回查找到的序号
+template &lt;class T&gt;
+int dvector&lt;T&gt;::search(T t)
+{
+	if (p ==nullptr)
+	{
+		std::cout &lt;&lt; &quot;The dvector is empty ,abort!&quot; &lt;&lt; std::endl;
+		return false;
+	}
+	else
+	{
+		for (size_t i = 0; i &lt; real_len; i++)
+		{
+			if (*(p+i) == t)
+			{
+				cout &lt;&lt; &quot;FIND	&quot; &lt;&lt; t &lt;&lt; &quot;at the position of  &quot; &lt;&lt; i&lt;&lt;&quot;  &quot; &lt;&lt; endl;
+				return i;
+			   
+			}
+		}
+
+		cout &lt;&lt; &quot;no such a thing&quot; &lt;&lt; endl; 
+		return -1;
+
+	}
+
+
+	return -1;
+
+
+}
+
+//删
+ template &lt;class T&gt;
+ bool dvector&lt;T&gt;::del(T t)
+ {
+
+	 if (p == nullptr)
+	 {
+		 std::cout &lt;&lt; &quot;The dvector is alreafy empty ,abort!&quot; &lt;&lt; std::endl;
+		 return false;
+	 }
+	 else
+	 {
+		 for (size_t i = 0; i &lt; real_len; i++)
+		 {
+			 if (*(p + i) == t)
+			 {
+				 cout &lt;&lt; &quot;Deleting&quot; &lt;&lt; endl;
+				 cout &lt;&lt; &quot;FIND	&quot; &lt;&lt; t &lt;&lt; &quot;at the position of  &quot; &lt;&lt; i &lt;&lt; &quot;  &quot; &lt;&lt; endl;
+				 
+				 //如果是在第一个的情况
+				 if (i == 0)
+				 {
+					 for (size_t i = 0; i &lt; real_len; i++)
+					 {
+						 if (real_len == 1)		 //如果是只剩一个而且刚好第一个是要删除的
+						 { 
+							 delete p;
+							 p == nullptr;
+							 real_len -= 1;
+							 return true;
+							
+						 }
+						 else
+						 {			//还有多个且第一个是要删除的
+							 T* tmp = new T[real_len - 1];
+							 for (size_t k = 0; k &lt; real_len-1; k++)
+							 {
+								 *(tmp + k) = *(p + k + 1);
+							 }
+
+							
+							 delete[]p;
+							 p = tmp;
+							 real_len -= 1;
+							 return true;
+						 }
+						 
+					 }
+
+				 }
+				 else if (i== real_len-1)			   //最后一个匹配要删除的时候
+				 {
+					 p + i == nullptr;
+					 real_len -= 1;
+				 }
+				 else		  //在中间的情况
+				 {
+
+					 T* tmp = new T[real_len - 1];
+					 for (size_t k = 0; k &lt; i ; k++)
+					 {
+						 *(tmp + k) = *(p + k);
+					 }
+					 // 利用两个循环刚好跳过下标为i 的值 k 为原来的p 中的值，tmp+k-i 为新数组中的下标
+					 for (size_t k = i+1; k &lt; real_len; k++)
+					 {
+						 *(tmp + k - 1) = *(p + k);
+
+					 }
+
+					
+					 delete[]p;
+					 p = tmp;
+					 real_len -= 1;
+					 return true;
+
+				 }
+
+
+			 }
+		 }
+
+		 cout &lt;&lt; &quot;no such a thing,Delete failed!&quot; &lt;&lt; endl;
+		 return false;
+
+	 }	   	
+
+ }
+
+ //改
+ template &lt;class T&gt;
+ bool dvector&lt;T&gt;::modify(T origin, T mo)
+ {
+
+	 if (p == nullptr)
+	 {
+		 std::cout &lt;&lt; &quot;The dvector is empty ,abort!&quot; &lt;&lt; std::endl;
+		 return false;
+	 }
+	 else
+	 {
+		 for (size_t i = 0; i &lt; real_len; i++)
+		 {
+			 if (*(p + i) == origin)
+			 {
+				 cout &lt;&lt; &quot;Modifying&quot; &lt;&lt; endl;
+				 cout &lt;&lt; &quot;FIND	&quot; &lt;&lt; origin &lt;&lt; &quot;at the position of  &quot; &lt;&lt; i &lt;&lt; &quot;  &quot; &lt;&lt; endl;
+				 
+				 *(p + i) = mo;
+
+			 }
+		 }
+
+		 cout &lt;&lt; &quot;no such a thing ,Modify failed!&quot; &lt;&lt; endl;
+		 return false;
+
+	 }
+
+
+	 return -1;
+
+ }
+
+
+
+int main()
+{
+    //测试基本类型
+    //string 会出错，因为string 不是基本类型，是一种类似 vector 的类模板，其内部的内存操作与基本类型不一样。
+    //1. int
+    dvector&lt;int&gt;* dv1=new dvector&lt;int&gt;;
+    dv1-&gt;push_back(12);
+    dv1-&gt;push_back(15);
+    dv1-&gt;push_back(1995);
+    dv1-&gt;push_back(200);
+    dv1-&gt;push_back(2);
+    dv1-&gt;push_back(1);
+
+    dv1-&gt;show();
+
+	//dv1-&gt;search(200);
+	//dv1-&gt;search(1000);
+	dv1-&gt;del(12);
+	dv1-&gt;show();
+	dv1-&gt;del(1995);
+	dv1-&gt;show();
+	dv1-&gt;del(1);
+	dv1-&gt;show();
+
+	dv1-&gt;modify(15, 33);
+	dv1-&gt;modify(200, 1);
+	dv1-&gt;modify(100, 1);
+	dv1-&gt;show();
+
+//	cout&lt;&lt;&quot;next............&quot;&lt;&lt;endl&lt;&lt;endl;
+//    //2. double
+//    dvector&lt;double&gt;* dv2=new dvector&lt;double&gt;;
+//    dv2-&gt;push_back(12.2);
+//    dv2-&gt;push_back(15.3);
+//    dv2-&gt;push_back(1995.0220);
+//    dv2-&gt;push_back(200.1);
+//    dv2-&gt;push_back(2.3);
+//    dv2-&gt;push_back(1.9);
+//
+//    dv2-&gt;show();
+//
+//	dv2-&gt;search(1.9);
+//
+//	cout &lt;&lt; &quot;next............&quot; &lt;&lt; endl &lt;&lt; endl;
+//
+//    //3. char*
+//    dvector&lt;const char*&gt;* dv3=new dvector&lt;const char*&gt;;
+//    dv3-&gt;push_back(&quot;nimei&quot;);
+//    dv3-&gt;push_back(&quot;de&quot;);
+//    dv3-&gt;push_back(&quot;垃圾&quot;);
+//    dv3-&gt;push_back(&quot;95&quot;);
+//    dv3-&gt;push_back(&quot;lalala&quot;);
+//    dv3-&gt;push_back(&quot;45&quot;);
+//
+//dv3-&gt;show();
+//dv3-&gt;search(&quot;nimei&quot;);
+//cout &lt;&lt; &quot;next............&quot; &lt;&lt; endl &lt;&lt; endl;
+
+std::cin.get();
+    return 0;
+}
+</div></code></pre>
+
+</body>
+</html>
