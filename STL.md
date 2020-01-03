@@ -356,7 +356,7 @@ void clear():清空双端队列中最后一个元素
 
 reference at(int pos):返回pos位置元素的引用
 
-reference front():返回手元素的引用
+reference front():返回首元素的引用
 
 reference back():返回尾元素的引用
 

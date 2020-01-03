@@ -72,7 +72,7 @@ void assign(int n,const T& x):向量中第n个元素的值设置为x
 操作示例：
 // deque.cpp : 定义控制台应用程序的入口点。
 //
- 
+```
 #include "stdafx.h"
 #include<iostream>
 #include<deque>
