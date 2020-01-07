@@ -5,7 +5,7 @@
 using namespace std;
 
 
-size_t time_merge=0;
+size_t time_merge = 0;
 
 
 void BubbleSort(int arr1[])
@@ -13,7 +13,7 @@ void BubbleSort(int arr1[])
     cout << "Bubble 冒泡排序开始了" << endl;
     static size_t  times = 0;
 
-    int *arr=new int[10000];
+    int* arr = new int[10000];
     for (size_t i = 0; i < 10000; i++)
     {
 
@@ -62,7 +62,7 @@ void SelectionSort(int arr1[])
 {
     static int times = 0;
 
-    int *arr=new int[10000];
+    int* arr = new int[10000];
     for (size_t i = 0; i < 10000; i++)
     {
 
@@ -107,7 +107,7 @@ void InsetionSort(int arr1[])
 {
     static int times = 0;
 
-    int *arr=new int[10000];
+    int* arr = new int[10000];
     for (size_t i = 0; i < 10000; i++)
     {
 
@@ -160,7 +160,7 @@ void ShellSort(int arr1[])
 {
     static int times = 0;
 
-    int *arr=new int[10000];
+    int* arr = new int[10000];
     for (size_t i = 0; i < 10000; i++)
     {
 
@@ -219,89 +219,90 @@ void ShellSort(int arr1[])
 }
 
 
-void Merge_1(int arr[],int start,int mid,int end)
+void Merge_1(int arr[], int start, int mid, int end)
 {
     static int times = 0;
-    int* temp=new int[end-start+1];
-    int i=start; //第一个有序数列的索引的开始
-    int j=mid+1; //第二个有序数列的索引的开始
-    int k=0; //临时区的索引
+    int* temp = new int[end - start + 1];
+    int i = start; //第一个有序数列的索引的开始
+    int j = mid + 1; //第二个有序数列的索引的开始
+    int k = 0; //临时区的索引
 
-    while((i<=mid)&&(j<=end))
+    while ((i <= mid) && (j <= end))
     {
 
-        if (arr[i]<arr[j])
+        if (arr[i] < arr[j])
         {
-            temp[k++]=arr[i];
+            temp[k++] = arr[i];
             i++;
             ++time_merge;
-        }else
+        }
+        else
         {
 
-            temp[k++]=arr[j];
+            temp[k++] = arr[j];
             j++;
- ++time_merge;
-            }
+            ++time_merge;
+        }
     }
 
 
-    while(i<=mid)
+    while (i <= mid)
     {
-        temp[k++]=arr  [i++];
-         ++time_merge;
+        temp[k++] = arr[i++];
+        ++time_merge;
     }
-    while (j<=end) {
-        temp[k++]=arr[j++];
-         ++time_merge;
+    while (j <= end) {
+        temp[k++] = arr[j++];
+        ++time_merge;
 
     }
 
     for (i = 0; i < k; i++)
     {
-         arr[start + i] = temp[i];
-         ++time_merge;
+        arr[start + i] = temp[i];
+        ++time_merge;
     }
 
 
 
 }
 
-void Mergeup2down(int a[],size_t start, size_t end)
+void Mergeup2down(int a[], size_t start, size_t end)
 {
-    if (a==nullptr || start>=end)
+    if (a == nullptr || start >= end)
     {
 
         return;
     }
 
-//    cout<<"Mergeing sorting"<<endl;
-    size_t mid=(start+end)/2;
-    Mergeup2down(a,start,mid);
-    Mergeup2down(a,mid+1,end);
+    //    cout<<"Mergeing sorting"<<endl;
+    size_t mid = (start + end) / 2;
+    Mergeup2down(a, start, mid);
+    Mergeup2down(a, mid + 1, end);
 
-    Merge_1(a,start,mid,end);
+    Merge_1(a, start, mid, end);
 }
 
-void Merge_Group(int a[],size_t len,size_t gap )
+void Merge_Group(int a[], size_t len, size_t gap)
 {
-int i;
-int twolen=2*gap;
+    int i;
+    int twolen = 2 * gap;
 
 
-// 将"每2个相邻的子数组" 进行合并排序。
-for(i = 0; i+2*gap-1 < len; i+=(2*gap))
-{
-    Merge_1(a, i, i+gap-1, i+2*gap-1);
-}
+    // 将"每2个相邻的子数组" 进行合并排序。
+    for (i = 0; i + 2 * gap - 1 < len; i += (2 * gap))
+    {
+        Merge_1(a, i, i + gap - 1, i + 2 * gap - 1);
+    }
 
 
 
-// 若 i+gap-1 < len-1，则剩余一个子数组没有配对。
-// 将该子数组合并到已排序的数组中。
-if ( i+gap-1 < len-1)
-{
-    Merge_1(a, i, i + gap - 1, len - 1);
-}
+    // 若 i+gap-1 < len-1，则剩余一个子数组没有配对。
+    // 将该子数组合并到已排序的数组中。
+    if (i + gap - 1 < len - 1)
+    {
+        Merge_1(a, i, i + gap - 1, len - 1);
+    }
 }
 
 
@@ -312,21 +313,79 @@ if ( i+gap-1 < len-1)
  *     a -- 待排序的数组
  *     len -- 数组的长度
  */
-void MergeDown2up(int a[],size_t len )
+void MergeDown2up(int a[], size_t len)
 {
-int n;
-if (a==NULL || len<=0)
-    return ;
+    int n;
+    if (a == NULL || len <= 0)
+        return;
 
-for (n=1;n<len;n*=2)
+    for (n = 1; n < len; n *= 2)
+    {
+        Merge_Group(a, len, n);
+    }
+}
+
+
+void quick_sort(int a[], int l, int r)
 {
-    Merge_Group(a,len,n);
+    if (l < r)
+    {
+        int i, j, x;
+        cout << "Now the array is :" << endl;
+        for (size_t xk = 0; xk < 10; xk++)
+        {
+                        cout << "\t" << a[xk];
+        }
+        cout<< endl << "The next is operations :\n\n";
+
+        i = l;
+        j = r;
+        x = a[i]; //单独保存a[i]，防止丢失，同时空出一个位置来交换
+
+        while (i < j)
+        {
+            while (i < j && a[j] > x) //a[j]>x 说明 后面的元素大，下一个
+            {
+                cout << "we are finding the smallest fromt right ,and missed! \t  i=" << i << "\tj=" << j << endl;
+                j--; // 从右向左找第一个小于x的数
+
+            }
+
+//            上面循环完已经找到 a[i]<=x 所以存到a[i] 的地方来
+            if (i < j)
+            {
+                a[i++] = a[j];  //i++ 是为了此次循环结束自增跳到下一个去
+                cout  << "a[" << i << "]=a[" << j << "]" << endl;
+
+            }
+
+            while (i < j && a[i] < x)
+
+            {
+                  cout << "we are finding the biggest fromt left ,and missed! \t i=" << i << "\tj=" << j << endl;
+                i++; // 从左向右找第一个大于x的数
+
+            }
+
+            //            上面循环完已经找到 a[i]>=x 所以存到j (后面元素)的地方来，不是大就是小，所以上面交换了下面一定也会交换
+            if (i < j)
+            {
+                cout << "a[" << j << "]=a[" << i << "]" << endl;
+                a[j--] = a[i];
+            }
+
+        }
+        a[i] = x; //把丢出去的元素找回来
+        quick_sort(a, l, i - 1); /* 递归调用  */
+        quick_sort(a, i + 1, r); /* 递归调用 */
+    }
 }
-}
+
+
 int main(int argc, char**)
 {
 
-    int *a = new int[10000];
+    int* a = new int[10000];
 
     srand((unsigned int)time(0));
 
@@ -354,17 +413,23 @@ int main(int argc, char**)
 //    cout <<endl<<"Times for Merging sort is \t"<<time_merge;
 
 
-    MergeDown2up(a,10000);
+    //MergeDown2up(a, 10000);
 
-        for (size_t i = 0; i < 10000; i++)
-        {
-            //a[i] = rand();
-            cout << a[i] << "\t";
-        }
-        cout <<endl<<"Times for Merging sort is \t"<<time_merge;
+    //for (size_t i = 0; i < 10000; i++)
+    //{
+    //	//a[i] = rand();
+    //	cout << a[i] << "\t";
+    //}
+    //cout << endl << "Times for Merging sort is \t" << time_merge;
 
-  cout <<endl<<"Times for Merging sort is \t"<<time_merge;
+    //cout << endl << "Times for Merging sort is \t" << time_merge;
 
+    quick_sort(a, 0, 9);
+    cout << "Then the array is :\n";
+    for (size_t i = 0; i < 10; i++)
+    {
+        cout << a[i] << "\t";
+    }
     cin.get();
     return 0;
 }
