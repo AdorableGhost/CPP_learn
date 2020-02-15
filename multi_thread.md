@@ -72,7 +72,7 @@ int main()
 | native_handle                | get native handle                                    |
 | hardware_concurrency[static] | Detect hardware concurrency (public static function) |
 
-![](1.jpg)
+![](1.jpg)  
 
 <li> 线程 detach 脱离主线程的绑定，主线程挂了，子线程不报错，子线程执行完自动退出。
 
