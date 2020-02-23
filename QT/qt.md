@@ -288,4 +288,93 @@ int main (int argc ,char ** argv)
 
 ### QT 消息中级
 
-- eventFilter 截取消息
+####  eventFilter 截取消息
+  - 首先需要安装EventFilter .经过这个控件的消息都必须经过这个过滤器
+  -  pb->installEventFilter(this);
+  -  安装处理特定消息后必须将 消息返回 QWidget 。
+
+- 代码示例：
+  - dWidget.h
+ ```
+ #ifndef DWIDGET_H
+#define DWIDGET_H
+
+#include <QWidget>
+
+class dWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit dWidget(QWidget *parent = nullptr);
+
+    bool eventFilter(QObject *watched, QEvent *event);
+
+    QObject* _ob;
+signals:
+
+public slots:
+};
+
+#endif // DWIDGET_H
+
+ ```
+
+  - dWidget.cpp
+  
+  ```
+  #include <QApplication>
+#include <QEvent>
+#include <QPushButton>
+#include <QDebug>
+#include "dwidget.h"
+
+dWidget::dWidget(QWidget *parent) : QWidget(parent)
+{
+
+    QPushButton* pb=new QPushButton("lalal");
+    pb->setParent(this);
+    connect(pb,SIGNAL(clicked(bool)),this,SLOT(close()));
+
+    _ob=pb;
+    pb->installEventFilter(this);
+}
+
+bool dWidget::eventFilter(QObject *watched, QEvent *event){
+
+    if( watched== (QObject*)_ob  && (event->type()==QEvent::MouseButtonPress
+                                     || event->type()==QEvent::MouseButtonDblClick))
+    {
+        qDebug()<<"Msg have been catched!\n an Never exit!!......";
+        return true;
+
+    }
+
+    return QWidget::eventFilter(watched,event);  //必须返回给Qwidget
+}
+
+int main (int argc,char ** argv)
+{
+    QApplication ap(argc,argv);
+    dWidget* dd=new dWidget();
+    dd->show();
+    return ap.exec();
+
+}
+
+  ```
+
+####  notify 通知消息
+
+- notify 函数属于 QApplication .需要重载QApplciation 实现自己的通知消息
+- 示例代码见最后
+
+#### postEvent 和 sendEvent 
+- ap.postEvent(dd,new QEvent(QEvent::User)); //postEvent 加入消息队里等待处理
+- ap.sendEvent(dd,new QEvent(QEvent::User)); //发送给消息队列并立即处理
+- 示例代码见最后
+
+- qApp 是全局指针。可以全局调用
+  
+
+### QPainter 和重写自定义控件
+- 

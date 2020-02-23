@@ -1,5 +1,9 @@
 # CPP 小知识
 
+## Hacktosh
+https://mirrors.dtops.cc/iso/MacOS/daliansky_macos/macOS%20Catalina%2010.15.3%2819D76%29%20Installer%20for%20Clover%205103%20and%20WEPE.dmg
+迅雷下载
+
 ## define
 - 作用
   - 预处理命令，定义常量、简单表达式，防止头文件重复包含
