@@ -656,3 +656,36 @@ int main (int argc,char** argv)
 
 
 
+### 信号和槽
+
+#### 定义
+- 信号（Signal) 函数必须放在signals 保留字下，并且不需要实现
+- 槽 必须放在slots 保留字下，切必须实现
+- 信号和槽通过QObject::connect()函数连接
+- 当信号被触发时，槽函数执行
+- 触发信号用emit 关键字
+  
+
+#### 需要注意的事项
+-   信号和槽，时QT的扩展，所以实现信号和槽的类，必须是QObject的子类
+-   实现信号和槽的类，必须以 Q_OBJECT 开始
+- 连接信号和槽，需要用到 SIGNAL 和 SLOT 宏转换为字符串
+- 一个信号可以和多个槽连接，槽函数调用的顺序是不确定的
+- 多个信号可以同时连接一个槽
+- 信号可以连接信号，形成传递
+- 信号和槽的参数参数应该一样多，类型必须一样。
+- 信号可以重载
+- 槽可以重载
+- 信号和槽都可以有默认参数
+- 槽函数可以向普通函数一样调用（Widget::close())
+- 在槽函数中，调用sender可以获得信号调用者
+- .....
+
+#### 总结：
+- 一个类 QObject
+- 三个宏 Q_OBJECT SIGNAL SLOT
+- 三个保留字 signals slots  emit
+
+
+### 高级Painter
+-  QGraphicSence 和 QGraphicsItem 头文件使用
