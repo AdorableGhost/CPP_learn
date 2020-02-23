@@ -374,7 +374,285 @@ int main (int argc,char ** argv)
 - 示例代码见最后
 
 - qApp 是全局指针。可以全局调用
-  
+   - app.h 
 
+```
+#ifndef APP_H
+#define APP_H
+
+#include <QApplication>
+#include <QDebug>
+class APP : public QApplication
+{
+    Q_OBJECT
+public:
+    APP(int argc,char** argv):QApplication(argc,argv)
+    {
+
+    }
+
+     QWidget* topW;
+    bool notify(QObject *, QEvent *);
+};
+
+#endif // APP_H
+
+```
+
+  - app.cpp
+  
+  ```
+  #include "app.h"
+
+bool APP::notify(QObject *ob, QEvent *ev)
+{
+    if(this->topLevelWidgets().count()>0)
+    {
+        topW=this->topLevelWidgets().at(0);
+        if(ob==(QObject*)topW && ev->type() ==QEvent::MouseButtonPress)
+        {
+
+        qDebug()<<"main window is clicked";
+        }
+    }
+
+
+    return QApplication::notify(ob,ev);
+}
+
+  ```
+
+-   dwidget.h
+```
+#ifndef DWIDGET_H
+#define DWIDGET_H
+
+#include <QWidget>
+
+class dWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit dWidget(QWidget *parent = nullptr);
+
+    bool eventFilter(QObject *watched, QEvent *event);
+
+    QObject* _ob;
+
+bool  event(QEvent *event);
+signals:
+
+public slots:
+};
+
+#endif // DWIDGET_H
+
+```
+- dwidget.cpp
+  
+```
+//#include <QApplication>
+#include <QEvent>
+#include <QPushButton>
+#include <QDebug>
+#include "dwidget.h"
+#include "app.cpp"
+
+dWidget::dWidget(QWidget *parent) : QWidget(parent)
+{
+
+    QPushButton* pb=new QPushButton("lalal");
+    pb->setParent(this);
+    connect(pb,SIGNAL(clicked(bool)),this,SLOT(close()));
+
+    _ob=pb;
+    pb->installEventFilter(this);
+}
+
+bool dWidget::eventFilter(QObject *watched, QEvent *event){
+
+    if( watched== (QObject*)_ob  && (event->type()==QEvent::MouseButtonPress
+                                     || event->type()==QEvent::MouseButtonDblClick))
+    {
+        qDebug()<<"Msg have been catched!\n an Never exit!!......";
+        return true;
+
+    }
+
+
+    return QWidget::eventFilter(watched,event);
+}
+
+
+bool dWidget::event(QEvent *event)
+{
+    if(event->type()==QEvent::User)
+    {
+        qDebug()<<"User Event is comming";
+    }
+
+    return QWidget::event(event);
+}
+int main (int argc,char ** argv)
+{
+    APP ap(argc,argv);
+    dWidget* dd=new dWidget();
+    dd->show();
+    //发送一个Event 给 dWidget
+    ap.postEvent(dd,new QEvent(QEvent::User)); //postEvent 加入消息队里等待处理
+    ap.sendEvent(dd,new QEvent(QEvent::User)); //发送给消息队列并立即处理
+
+    return ap.exec();
+
+}
+
+```
 ### QPainter 和重写自定义控件
-- 
+- 头文件 <QPainter>
+- 常用功能： drawLine drawRect drawText 等 ，可通过translate transform 变换
+
+#### QPainter 的绘图效率(引用)
+- 通过定义 PaintDevice 然后在 PainDevice 中画，然后再显示
+- 可以通过 Qpainter 实现 一个自定义的画图工具
+- 代码如下：
+  
+  - ww.h
+```
+
+#ifndef WW_H
+#define WW_H
+#include <QApplication>
+#include <QPainter>
+#include <QEvent>
+#include <QWidget>
+#include <QMouseEvent>
+
+class ww : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit ww(QWidget *parent = nullptr);
+
+
+//    void Pain()
+//    {
+//        p->drawLine(QPoint(0,0),QPoint(0,100));
+//        p->drawRect(QRect(QPoint(50,50),QPoint(200,100)));
+//    }
+
+    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+
+   QVector<QVector<QPoint>>_lines;   //用Qvector 记录连起来的点是line ,——lines 则是这些线的集合
+
+    void paintEvent(QPaintEvent*);
+signals:
+
+public slots:
+};
+
+#endif // WW_H
+
+```
+
+- ww.cpp
+
+```
+#include "ww.h"
+
+ww::ww(QWidget *parent) : QWidget(parent)
+{
+//    QPaintDevice* qd=new QPaintDevice();
+
+
+}
+
+void ww::paintEvent(QPaintEvent* e)
+{
+     QPixmap* map=new QPixmap(size());
+     map->fill(Qt::gray);
+     //QPainter* p=new QPainter(this);
+     QPainter* p=new QPainter(map);
+     p->setBackground(QBrush(QColor(Qt::gray)));
+     p->setBrush(Qt::red);
+     p->setPen(QPen(Qt::green));
+     p->translate(50,50);
+     QTransform* trans=new QTransform;
+     trans->rotate(30);
+     trans->scale(0.3,0.3);
+     p->setTransform(*trans);
+
+    p->drawLine(QPoint(0,0),QPoint(100,100));
+    p->drawRect(QRect(QPoint(50,50),QPoint(200,100)));
+    p->drawText(QPoint(100,100),"Hello 你好");
+    p->drawPixmap(QPoint(200,200),QPixmap("11.png"));
+
+    p->end(); //在 PixMAp 绘画结束
+
+
+    p->begin(this); //重新开始在屏幕上画
+    p->drawPixmap(QPoint(0,0),*map); //重新在窗口中显示图片
+
+    p->setBrush(Qt::black);
+    p->setPen(QPen(Qt::black));
+
+    // 下面为定义 划线的函数
+
+    for(int x=0;x<_lines.size();x++)
+    {
+       const  QVector<QPoint>& line = _lines.at(x);
+        for (int i=0;i<line.size()-1;i++)
+        {
+            p->drawLine(line.at(i),line.at(i+1));
+        }
+
+
+    }
+
+
+}
+
+
+
+void ww::mouseMoveEvent(QMouseEvent *event)
+{
+    QVector<QPoint>& lastLine=_lines.last();
+    lastLine.append(event->pos());
+    update(); //重绘窗口，隐含调用PaintEvent
+}
+void ww::mousePressEvent(QMouseEvent *event)
+{
+
+    QVector<QPoint> line;
+    _lines.append(line);
+
+    QVector<QPoint>& lastLine=_lines.last();
+    lastLine.append(event->pos());
+}
+
+
+void ww::mouseReleaseEvent(QMouseEvent *event)
+{
+    QVector<QPoint>& lastLine=_lines.last();
+    lastLine.append(event->pos());
+}
+
+
+int main (int argc,char** argv)
+{
+    QApplication app(argc,argv );
+
+    ww* window=new ww();
+//    window->Pain();
+    window->show();
+
+    return app.exec();
+}
+
+```
+
+#### QPainter 实现自己的控件
+
+
+
