@@ -92,4 +92,19 @@ int* modifier = const_cast<int*>(const_p);
 
 - 出处：https://www.cnblogs.com/rednodel/p/9299251.html
 - 原文 [原文](https://www.cnblogs.com/rednodel/p/9299251.html)
-- 
+
+
+## 快速编译Qt程序
+- 解决Qt Creator在编译应用程序时耗时较长的优化方法：
+
+    - 首先，Qt creator只是一个IDE，不是编译器，编译快慢与Qt Creator无关，要看具体使用的是什么编译器。一般来说Windows下就是MinGW的gcc和Visual Studio的nmake，在Windows下推荐使用VS编译器，能够加快编译速度。
+
+
+
+  - 其次，可以配置PRECOMPILED_HEADER，添加预编译头文件(PCH,PreCompiled Headers)支持：
+
+    CONFIG+=precompile_header  
+    PRECOMPILED_HEADER=stable.h  
+   -    最后，可以采用并行编译方式，在.pro里加入下面一行：<br>
+    QMAKE_CXXFLAGS += /MP<br>
+    同时起多个编译进程并行编译不同的cpp。

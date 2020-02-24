@@ -689,3 +689,400 @@ int main (int argc,char** argv)
 
 ### 高级Painter
 -  QGraphicSence 和 QGraphicsItem 头文件使用
+
+
+
+### QDialog
+- 模块对话框和普通对话框：
+  - 通过exec() 运行的是模块对话框，模块对话框有自己的消息循环，且把APP 的消息循环接管了（就是模块对话框出来以后，主窗口就点不动了
+  - 通过show（） 运行的是普通对话框，普通对话框可以有多个，且互不干扰
+  - 如果Dialog 是通过exec() 来来显示，可以通过 accept() 和 Reject() 来关闭窗口。show() 显示则通过 close() 来关闭，和 Qwidget 一样。
+
+- 有很多特殊的 Dialog 如打印（预览） ，文件选择，MessageBox，颜色选择，字体选择
+
+#### 代码展示
+
+- Dialog.h
+```
+#ifndef DIALOG_H
+#define DIALOG_H
+
+#include <QDialog>
+#include <QPushButton>
+#include <QDebug>
+#include <QFileDialog>
+#include <QString>
+#include <QFileInfo>
+#include <QFontDialog>
+
+#include <QMessageBox>
+
+namespace Ui {
+class Dialog;
+}
+
+class Dialog : public QDialog
+{
+    Q_OBJECT
+
+public:s
+    explicit Dialog(QWidget *parent = 0);
+    ~Dialog();
+
+signals:
+
+
+public slots:
+
+    void _clicked()
+    {
+#if 0
+        QDialog* qd=new QDialog();
+//        qd->setParent(this); //不能设置Parent。。。
+         qDebug()<<"Clicked";
+
+         QPushButton* qpp=new QPushButton("Accept",qd);
+         connect(qpp,SIGNAL(clicked(bool)),qd,SLOT(accept()));
+         int rect;
+        if(rect=qd->exec() == QDialog::Accepted) //exec() 显示是个模块对话框 只能有一个
+            {
+
+            qDebug()<<"Accept";
+            }
+
+        if(rect==QDialog::Rejected)
+        {
+            qDebug()<<"Rejected";
+        }
+//         qd->show(); //show（） 显示，是正常对话框 可以有无数个
+
+#endif
+#if 0
+
+
+        QString Filename =
+        QFileDialog::getSaveFileName(NULL,"Slect File for save",_str,"PNG File(*.png)"); //QFIleDialog 一般直接直接使用静态函数 getOpenFileName 指定打开文件
+        qDebug()<<Filename;
+        QFileInfo FileInfo(Filename);
+        _str=FileInfo.path();
+
+
+        QFontDialog* font=new QFontDialog(this);
+        font->exec();
+         qDebug()<<font->selectedFont();
+ #endif
+
+         QMessageBox::warning(this,"警告","警告@！！！！");
+
+    }
+
+private:
+    Ui::Dialog *ui;
+    QString _str;
+};
+
+#endif // DIALOG_H
+
+
+```
+
+- Dialog.cpp
+
+```
+#include "dialog.h"
+#include "ui_dialog.h"
+
+Dialog::Dialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Dialog)
+{
+    QPushButton* pb=new QPushButton("new one");
+    pb->setParent(this);
+    ui->setupUi(this);
+    connect(pb,SIGNAL(clicked(bool)),this,SLOT(_clicked()));
+}
+
+Dialog::~Dialog()
+{
+    delete ui;
+}
+
+```
+- main.cpp
+
+```
+#include "dialog.h"
+#include <QApplication>
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    Dialog w;
+    w.show();
+
+    return a.exec();
+}
+
+```
+
+- dialog.ui
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>946</width>
+    <height>560</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
+
+```
+  
+### MainWindow
+
+- 主窗口
+- 菜单栏 ： Qmenu 菜单类 QMenuBar 菜单栏 QAction 菜带项目
+- Status Bar 
+- Tool Bar 
+- QSystemTrayIcon 系统托盘类
+
+- 示例代码如下：
+  - mw.h  
+```
+#ifndef MW_H
+#define MW_H
+
+#include <QMainWindow>
+#include <QApplication>
+#include <QMenu>
+#include <QMenuBar>
+#include <QAction>
+#include <QList>
+#include <QFileDialog>
+#include <QString>
+#include <QDebug>
+#include <QToolBar>
+#include <QStatusBar>
+#include <QLabel>
+#include <QSystemTrayIcon>  //系统托盘类
+#include "mview.h"
+
+class mw : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    mw(QWidget *parent = 0);
+    ~mw();
+
+private:
+QString _str;
+mview* _view;
+QMenu* _menu;
+QSystemTrayIcon* _icon;
+
+public slots:
+    void open_file()
+    {
+        _str=QFileDialog::getOpenFileName(this,"",_str,"TXT File (*.txt)");
+
+        qDebug()<<"Opened File :"<<_str;
+
+
+
+    }
+
+    void open_dir()
+    {
+        _str=QFileDialog::getExistingDirectory(this,"",_str);
+
+        qDebug()<<"Opened Directory :"<<_str;
+
+
+
+    }
+
+//    void paintEvent(QPaintEvent *event);
+
+    void mousePressEvent(QMouseEvent *event);
+    bool event(QEvent *event);
+
+signals:
+    void clicked();
+};
+
+
+
+#endif // MW_H
+
+
+```
+
+- mw.cpp
+
+```
+#include "mw.h"
+
+mw::mw(QWidget *parent)
+    : QMainWindow(parent)
+{
+    //加菜单
+    QMenuBar* menubar=this->menuBar(); //获取mainWindow 里面的MenuBar
+    QMenu* menu=menubar->addMenu("&Open"); //通过MenuBar 添加菜单，每个菜单对弈一个菜单项
+    QAction* open_file=new QAction("Open File");
+    QAction* open_Directory=new QAction("Open Directory");
+    QAction* exit_this=new QAction("Exit");
+//    QAction* blank=new QAction("Exit");
+
+    exit_this->setShortcut(QKeySequence::Quit);
+    open_file->setShortcut(QKeySequence::Open);
+    connect(exit_this,SIGNAL(triggered(bool)),this,SLOT(close()));  //绑定槽函数，信号使用trggered()
+    connect(open_file,SIGNAL(triggered(bool)),this,SLOT(open_file()));
+     connect(open_Directory,SIGNAL(triggered(bool)),this,SLOT(open_dir()));
+    QList<QAction*> ql={
+        open_file,
+        open_Directory,
+        exit_this
+    };
+    menu->addActions(ql);
+    _menu =menu;
+
+    // ToolBar
+
+    QToolBar* tb1= this->addToolBar("TollBar");
+    tb1->addActions(ql);
+
+
+    //Status Bar
+
+    QStatusBar* stb=this->statusBar();
+    stb->addWidget(new QLabel("OK"));
+    stb->addActions(ql);
+
+
+
+    _view = new mview;
+
+    this->setCentralWidget(_view);
+
+    this->setWindowOpacity(0.9); //设置 窗口透明度 小数
+
+    //创建托盘类
+    _icon=new QSystemTrayIcon(this);
+    _icon->setIcon(QIcon("E:/code/universal/QT/MW/1.ico"));
+    _icon->setToolTip("我是Elliot 的小程序的哦");
+    _icon->show();
+
+}
+
+
+//void mw::paintEvent(QPaintEvent *event)
+//{
+
+
+//}
+
+
+  void mw::mousePressEvent(QMouseEvent *event)
+  {
+      if(event->button()==Qt::RightButton)
+    _menu->exec(QCursor::pos());
+  }
+
+  bool mw::event(QEvent *event)
+  {
+        if(event->type()==QEvent::Close)
+        {
+            return true;
+        }
+
+        return QMainWindow::event(event);
+  }
+
+
+mw::~mw()
+{
+
+}
+
+```
+
+- mview.h
+
+```
+#ifndef MVIEW_H
+#define MVIEW_H
+
+#include <QWidget>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QPixmap>
+
+class mview : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit mview(QWidget *parent = nullptr){}
+
+    void paintEvent(QPaintEvent *event)
+    {
+        QPainter* panter=new QPainter(this);
+        panter->fillRect(rect(),Qt::black);
+        panter->drawArc(50,50,30,30,10,50);
+        panter->drawPixmap(QPoint(0,0),QPixmap("E:/code/universal/QT/MW/11.png"));
+    }
+
+signals:
+
+public slots:
+};
+
+#endif // MVIEW_H
+
+```
+- mview.cpp
+```
+#include "mview.h"
+
+mview::mview(QWidget *parent) : QWidget(parent)
+{
+
+
+}
+
+
+```
+
+- main.cpp
+
+```
+#include "mw.h"
+#include <QApplication>
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    mw w;
+    w.show();
+
+    return a.exec();
+
+}
+
+```
+
+### QFile-QBuffer-QXXXXStream-Mapping
+- QIODevice
