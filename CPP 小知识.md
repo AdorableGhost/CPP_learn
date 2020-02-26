@@ -108,3 +108,26 @@ int* modifier = const_cast<int*>(const_p);
    -    最后，可以采用并行编译方式，在.pro里加入下面一行：<br>
     QMAKE_CXXFLAGS += /MP<br>
     同时起多个编译进程并行编译不同的cpp。
+
+
+    ## 编译QT 的Mysql 驱动
+-   1.下载MySQL Connector C 6.1并安装
+-   2.打开 VS 2017的开发人员命令提示符 
+-   3.进入  C:\Qt\Qt5.14.1\5.14.1\Src\qtbase\src\plugins\sqldrivers\mysql\
+    -   即进入 QT安装目录\版本号\Src\qtbase\src\plugins\sqldrivers\mysql\ 目录，实为QT mysql 驱动的源代码目录
+-   4.修改 C:\Qt\Qt5.14.1\5.14.1\Src\qtbase\src\plugins\sqldrivers\mysql\mysql.pro 文件 
+    - 增加 ``` LIBS += -LC:\Qt\Qt5.14.1\5.14.1\Src\qtbase\src\plugins\sqldrivers\mysql -lmysql
+INCLUDEPATH +="C:/Program Files (x86)/MySQL/MySQL Connector C 6.1/include"
+QMAKE_LIBDIR +="C:/Program Files (x86)/MySQL/MySQL Connector C 6.1/lib"```
+    - 即 增加 MySQL Connector C 6.1 安装目录下的include路径  和MySQL Connector C 6.1 安装目录下的lib路径  ,同时 增加MySQL Connector C 6.1 安装目录下的lib路径下的libmysql.dll(.lib)库
+-   5. 输入 ```C:\Qt\Qt5.14.1\5.14.1\msvc2017\bin\qmake -- MYSQL_INCDIR="C:\Program Files (x86)\MySQL\MySQL Connector C 6.1\include" MYSQL_LIBDIR="C:\Program Files (x86)\MySQL\MySQL Connector C 6.1\lib" ```
+    -   即 qmake -- -- MYSQL_INCDIR=MySQL Connector C 6.1 安装目录下的include路径 MYSQL_LIBDIR=MySQL Connector C 6.1 安装目录下的lib路径 
+- 6.命令行输入 nmake
+- 7.命令行输入 nmake install
+- 8. 出错处理：
+  - 1. 找不到 mysql 库 ： 
+    - qtsqldrivers-config.pri 文件找不到，在  C:\Qt\Qt5.14.1\5.14.1\Src\qtbase\src\plugins\sqldrivers\ 下有这个文件，提示在哪里找不到就复制到哪里去。我的是在文件生产目录找不到，那就把这个复制过去
+    - MySQL Connector C 6.1 未安装正确
+    - 增加MySQL Connector C 6.1 安装目录下的lib路径下的libmysql.dll(.lib)库 的操作不正确。（mysql.pro 文件没写对）
+    - qmake -- -- MYSQL_INCDIR=MySQL Connector C 6.1 安装目录下的include路径 MYSQL_LIBDIR=MySQL Connector C 6.1 安装目录下的lib路径 命令写错C Connector 的路径了
+

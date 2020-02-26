@@ -1085,4 +1085,200 @@ int main(int argc, char *argv[])
 ```
 
 ### QFile-QBuffer-QXXXXStream-Mapping
-- QIODevice
+- QIODevice 是所有IO 类的父类
+  - QFile
+  - QBuffer //Memery File
+  - QTCPSocket
+  - QUDPSocket
+
+#### QFile
+- 头文件 QFile
+- 函数  open write 
+- QString  是多字节字符串 QByteArray 是字节数
+
+#### QBuffer //内存 文件
+- 头文件 QBuffer
+- 函数  open write 
+
+
+#### QDataStream QTextStream
+
+  
+- 代码展示
+  - mw.h
+
+```
+#ifndef MW_H
+#define MW_H
+
+#include <QWidget>
+#include <QApplication>
+#include <QFile>
+#include <QBuffer>
+#include <QTextBrowser>
+#include <QPixmap>
+#include <QLabel>
+#include <QTextStream>
+#include <QDataStream>
+
+
+class mw : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit mw(QWidget *parent = nullptr);
+
+signals:
+
+public slots:
+};
+
+#endif // MW_H
+
+```
+
+- mw.cpp
+
+```
+#include "mw.h"
+
+mw::mw(QWidget *parent) : QWidget(parent)
+{
+    QTextBrowser* qbb=new QTextBrowser(this);
+    QFile file("devil.txt");
+    file.open(QFile::ReadWrite);
+
+    file.write("jaingnan");
+
+
+    file.close();
+
+
+    QBuffer buffer;
+
+    buffer.open(QBuffer::ReadWrite);
+#if 0
+    buffer.write("aa");
+//    QString aa('江南的风');
+    buffer.write("Nothing to read");
+
+#endif
+
+    QPixmap* map=new QPixmap("11.png");
+
+    map->save(&buffer,"png");
+
+
+    qbb->setText(buffer.buffer());
+    QString str=tr("%1").arg(buffer.size());
+    qbb->append(str);
+    buffer.close();
+
+
+    QPixmap* png=new QPixmap;
+    png->loadFromData(buffer.buffer(),"PNG");
+    const QPixmap png1=*png;
+    QLabel* label=new QLabel(this);
+    label->setPixmap(png1);
+
+
+    //Text Stream
+    QFile file1("stream.txt");
+    file1.open(QFile::ReadWrite);
+
+   QTextStream qs(&file1);
+
+   qs<<"nimeide"<<1.2<<22;
+
+
+   file.close();
+
+
+   //虚拟内存 Virtual Memory
+
+}
+
+
+int main  (int argc,char ** argv)
+{
+    QApplication app(argc,argv);
+
+
+    mw* mw1=new mw();
+    mw1->show();
+    return app.exec();
+
+}
+
+```
+
+### Socket-TCP-UDP-BOARDCAST-MULI-CAST
+- QT socket 需要在 .pro 文件中添加 QT += newwork
+- TCPServer 头文件
+
+### 关于在new 生成控件的时候this 的解释 和 deleteLater
+
+#### 关于在new 生成控件的时候this
+- 可以再生成控件的时候指定父对象this.此时，子对象的内存管理由父对象控制。
+  - 当父对象销毁的时候，子对象也被父对象销毁。避免了内存泄漏
+  - 窗口类可指定父子关系，避免了多一步的绑定
+  - 指定了父对象后也可以使用delete 释放，此时子对象的析构函数会通知父对象接触父子关系
+
+#### deleteLater 
+- 定义 延时删除，只是发送标记，不是立即删除
+
+
+### QT动态库
+
+- QT 使用LIBRARYSHARED_EXPORT （Q_DECL_EXPORT） 声明类来跨平台宏
+- 使用动态库是，需要在使用动态库的程序内包含源动态库的头文件，同时，包含库文件
+  - 1.包含库头文件
+  - 2.包含库位置：
+    - 在QT 的 .pro 文件中添加
+    - ``` LIBS += LE:\code\universal\QT\build-Library-Desktop_Qt_5_14_1_MSVC2017_32bit-Debug\debug -lLibrary```
+    - ```LIBS += L库的目录 -l库的名称```
+    - 不需要后缀 .dll
+
+
+### QT静态库
+- ....
+
+
+### QT JSON
+- 头文件 <QJsonDocument> <QJsonDocument> 
+- 
+
+### QT 加密
+- 头文件 #include <QCryptographicHash> 
+  - 有MD5 SHA 等加密
+
+### QSQLDatabase 的使用
+
+#### 编译Mysql 驱动
+-   1.下载MySQL Connector C 6.1并安装
+-   2.打开 VS 2017的开发人员命令提示符 
+-   3.进入  C:\Qt\Qt5.14.1\5.14.1\Src\qtbase\src\plugins\sqldrivers\mysql\
+    -   即进入 QT安装目录\版本号\Src\qtbase\src\plugins\sqldrivers\mysql\ 目录，实为QT mysql 驱动的源代码目录
+-   4.修改 C:\Qt\Qt5.14.1\5.14.1\Src\qtbase\src\plugins\sqldrivers\mysql\mysql.pro 文件 
+    - 增加 ``` LIBS += -LC:\Qt\Qt5.14.1\5.14.1\Src\qtbase\src\plugins\sqldrivers\mysql -lmysql
+INCLUDEPATH +="C:/Program Files (x86)/MySQL/MySQL Connector C 6.1/include"
+QMAKE_LIBDIR +="C:/Program Files (x86)/MySQL/MySQL Connector C 6.1/lib"```
+    - 即 增加 MySQL Connector C 6.1 安装目录下的include路径  和MySQL Connector C 6.1 安装目录下的lib路径  ,同时 增加MySQL Connector C 6.1 安装目录下的lib路径下的libmysql.dll(.lib)库
+-   5. 输入 ```C:\Qt\Qt5.14.1\5.14.1\msvc2017\bin\qmake -- MYSQL_INCDIR="C:\Program Files (x86)\MySQL\MySQL Connector C 6.1\include" MYSQL_LIBDIR="C:\Program Files (x86)\MySQL\MySQL Connector C 6.1\lib" ```
+    -   即 qmake -- -- MYSQL_INCDIR=MySQL Connector C 6.1 安装目录下的include路径 MYSQL_LIBDIR=MySQL Connector C 6.1 安装目录下的lib路径 
+- 6.命令行输入 nmake
+- 7.命令行输入 nmake install
+- 8. 出错处理：
+  - 1. 找不到 mysql 库 ： 
+    - qtsqldrivers-config.pri 文件找不到，在  C:\Qt\Qt5.14.1\5.14.1\Src\qtbase\src\plugins\sqldrivers\ 下有这个文件，提示在哪里找不到就复制到哪里去。我的是在文件生产目录找不到，那就把这个复制过去
+    - MySQL Connector C 6.1 未安装正确
+    - 增加MySQL Connector C 6.1 安装目录下的lib路径下的libmysql.dll(.lib)库 的操作不正确。（mysql.pro 文件没写对）
+    - qmake -- -- MYSQL_INCDIR=MySQL Connector C 6.1 安装目录下的include路径 MYSQL_LIBDIR=MySQL Connector C 6.1 安装目录下的lib路径 命令写错C Connector 的路径了
+
+### QSQLDatabase 的使用
+#### 原生执行SQL语句
+
+#### QSQLModel 方式 执行
+
+#### QTableView 特别方便
+- 用来显示QTable 类型的数据 
