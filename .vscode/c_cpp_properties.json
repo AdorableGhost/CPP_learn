@@ -3,14 +3,17 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.15.26726/include",
+                "C:\Qt\Qt5.14.1\5.14.1\msvc2017\include"              
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "intelliSenseMode": "msvc-x64",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang++", 
+            "intelliSenseMode": "msvc-x86",
             "cStandard": "c11",
             "cppStandard": "c++11"
         }

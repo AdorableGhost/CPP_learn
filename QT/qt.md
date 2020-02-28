@@ -1,5 +1,52 @@
 # QT学习
 
+
+<!-- TOC -->
+
+- [QT学习](#qt%e5%ad%a6%e4%b9%a0)
+  - [基础](#%e5%9f%ba%e7%a1%80)
+    - [坐标系统](#%e5%9d%90%e6%a0%87%e7%b3%bb%e7%bb%9f)
+    - [layouts](#layouts)
+    - [控件](#%e6%8e%a7%e4%bb%b6)
+    - [消息基础](#%e6%b6%88%e6%81%af%e5%9f%ba%e7%a1%80)
+    - [QT 消息中级](#qt-%e6%b6%88%e6%81%af%e4%b8%ad%e7%ba%a7)
+      - [eventFilter 截取消息](#eventfilter-%e6%88%aa%e5%8f%96%e6%b6%88%e6%81%af)
+      - [notify 通知消息](#notify-%e9%80%9a%e7%9f%a5%e6%b6%88%e6%81%af)
+      - [postEvent 和 sendEvent](#postevent-%e5%92%8c-sendevent)
+    - [QPainter 和重写自定义控件](#qpainter-%e5%92%8c%e9%87%8d%e5%86%99%e8%87%aa%e5%ae%9a%e4%b9%89%e6%8e%a7%e4%bb%b6)
+      - [QPainter 的绘图效率(引用)](#qpainter-%e7%9a%84%e7%bb%98%e5%9b%be%e6%95%88%e7%8e%87%e5%bc%95%e7%94%a8)
+      - [QPainter 实现自己的控件](#qpainter-%e5%ae%9e%e7%8e%b0%e8%87%aa%e5%b7%b1%e7%9a%84%e6%8e%a7%e4%bb%b6)
+    - [信号和槽](#%e4%bf%a1%e5%8f%b7%e5%92%8c%e6%a7%bd)
+      - [定义](#%e5%ae%9a%e4%b9%89)
+      - [需要注意的事项](#%e9%9c%80%e8%a6%81%e6%b3%a8%e6%84%8f%e7%9a%84%e4%ba%8b%e9%a1%b9)
+      - [总结：](#%e6%80%bb%e7%bb%93)
+    - [高级Painter](#%e9%ab%98%e7%ba%a7painter)
+    - [QDialog](#qdialog)
+      - [代码展示](#%e4%bb%a3%e7%a0%81%e5%b1%95%e7%a4%ba)
+    - [MainWindow](#mainwindow)
+    - [QFile-QBuffer-QXXXXStream-Mapping](#qfile-qbuffer-qxxxxstream-mapping)
+      - [QFile](#qfile)
+      - [QBuffer //内存 文件](#qbuffer-%e5%86%85%e5%ad%98-%e6%96%87%e4%bb%b6)
+      - [QDataStream QTextStream](#qdatastream-qtextstream)
+    - [Socket-TCP-UDP-BOARDCAST-MULI-CAST](#socket-tcp-udp-boardcast-muli-cast)
+    - [关于在new 生成控件的时候this 的解释 和 deleteLater](#%e5%85%b3%e4%ba%8e%e5%9c%a8new-%e7%94%9f%e6%88%90%e6%8e%a7%e4%bb%b6%e7%9a%84%e6%97%b6%e5%80%99this-%e7%9a%84%e8%a7%a3%e9%87%8a-%e5%92%8c-deletelater)
+      - [关于在new 生成控件的时候this](#%e5%85%b3%e4%ba%8e%e5%9c%a8new-%e7%94%9f%e6%88%90%e6%8e%a7%e4%bb%b6%e7%9a%84%e6%97%b6%e5%80%99this)
+      - [deleteLater](#deletelater)
+    - [QT动态库](#qt%e5%8a%a8%e6%80%81%e5%ba%93)
+    - [QT静态库](#qt%e9%9d%99%e6%80%81%e5%ba%93)
+    - [QT JSON](#qt-json)
+    - [QT 加密](#qt-%e5%8a%a0%e5%af%86)
+    - [QSQLDatabase 的使用](#qsqldatabase-%e7%9a%84%e4%bd%bf%e7%94%a8)
+      - [编译Mysql 驱动](#%e7%bc%96%e8%af%91mysql-%e9%a9%b1%e5%8a%a8)
+    - [QSQLDatabase 的使用](#qsqldatabase-%e7%9a%84%e4%bd%bf%e7%94%a8-1)
+      - [原生执行SQL语句](#%e5%8e%9f%e7%94%9f%e6%89%a7%e8%a1%8csql%e8%af%ad%e5%8f%a5)
+      - [QSQLModel 方式 执行](#qsqlmodel-%e6%96%b9%e5%bc%8f-%e6%89%a7%e8%a1%8c)
+      - [QTableView 特别方便](#qtableview-%e7%89%b9%e5%88%ab%e6%96%b9%e4%be%bf)
+    - [Qprocess 的使用](#qprocess-%e7%9a%84%e4%bd%bf%e7%94%a8)
+
+<!-- /TOC -->
+
+
 ## 基础
 - .pro文件为工程文件
 - .pro.user 特定环境的编译的工程文件
@@ -1282,3 +1329,10 @@ QMAKE_LIBDIR +="C:/Program Files (x86)/MySQL/MySQL Connector C 6.1/lib"```
 
 #### QTableView 特别方便
 - 用来显示QTable 类型的数据 
+
+
+
+### Qprocess 的使用
+- 头文件
+  - Qprocess
+  - 

@@ -1,4 +1,54 @@
 # CPP 学习笔记
+
+<!-- TOC -->
+
+- [CPP 学习笔记](#cpp-学习笔记)
+    - [多线程](#多线程)
+        - [文件操作已经学完，今天看下多线程  2019.11.11 15:06](#文件操作已经学完今天看下多线程--20191111-1506)
+            - [知识点１](#知识点１)
+            - [代码1](#代码1)
+            - [知识点２](#知识点２)
+        - [知识点３](#知识点３)
+            - [代码３](#代码３)
+    - [STL](#stl)
+        - [STL 学习，没有带笔记本回来。。。我日 2019.11.11 23:21](#stl-学习没有带笔记本回来我日-20191111-2321)
+            - [STL的概念](#stl的概念)
+            - [代码](#代码)
+            - [STL抽象的是什么](#stl抽象的是什么)
+        - [六大组件](#六大组件)
+            - [vector 动态数组 堆上](#vector-动态数组-堆上)
+            - [tuple 可以存储不同的数据类型](#tuple-可以存储不同的数据类型)
+            - [list 适合经常插入，经常删除的情况](#list-适合经常插入经常删除的情况)
+            - [list 容器](#list-容器)
+            - [set 容器 （红黑树容器）](#set-容器-红黑树容器)
+        - [algorithm 算法](#algorithm-算法)
+        - [Iterator](#iterator)
+            - [仿函数](#仿函数)
+        - [6.wmv STL Bug 迭代器](#6wmv-stl-bug-迭代器)
+        - [7.wmv 栈队列双端队列优先队列](#7wmv-栈队列双端队列优先队列)
+            - [stack 关键字可以构建栈](#stack-关键字可以构建栈)
+            - [queue  队列](#queue--队列)
+            - [deque 双端队列](#deque-双端队列)
+            - [priority_que 优先级队列 （不太理解）](#priority_que-优先级队列-不太理解)
+        - [红黑树容器](#红黑树容器)
+            - [set 是一个红黑树](#set-是一个红黑树)
+        - [set map multi-map 红黑树](#set-map-multi-map-红黑树)
+            - [set的高级用法](#set的高级用法)
+            - [multiset](#multiset)
+            - [map  映射 multimap 多层映射 &nbsp;9.wmv 53:41](#map--映射-multimap-多层映射-nbsp9wmv-5341)
+            - [pair 关键字 &nbsp;9.wmv 01:23:15](#pair-关键字-nbsp9wmv-012315)
+            - [hash_set 和hash_map &nbsp;9.wmv 01:33:10](#hash_set-和hash_map-nbsp9wmv-013310)
+            - [equal_range()](#equal_range)
+        - [string 本质是一个容器](#string-本质是一个容器)
+                - [网上扒来的 string 介绍](#网上扒来的-string-介绍)
+        - [GPU编程](#gpu编程)
+            - [Lamda 表达式 C++ AMP 编程](#lamda-表达式-c-amp-编程)
+    - [设计模式](#设计模式)
+        - [备忘录模式](#备忘录模式)
+
+<!-- /TOC -->
+
+
 ## 多线程
 ### 文件操作已经学完，今天看下多线程  2019.11.11 15:06
 #### 知识点１
@@ -262,12 +312,14 @@ git push origin 本地分支:远端希望创建的分支
 
 
 例如git下来的分支为master
+```
 
 git branch master
 git push origin master:my_remote_new_branch
 #远端即可创建新的分支my_remote_new_branch,提交本地修改
 
-### 2019.11.13 9:32
+```
+<!-- ### 2019.11.13 9:32 -->
 
 ``` std::for_each(arr.begin(), arr.end(), func);```
 
@@ -277,7 +329,7 @@ git push origin master:my_remote_new_branch
 
  C++ 11 新的for
 
-### 2019.11.03 23:46
+<!-- ### 2019.11.03 23:46 -->
 
 #### typename
 - 成员函数也可以是模板-
@@ -373,6 +425,7 @@ multiset和set差不多，但是允许重复元素。
 
 ### Iterator
 ![](iterator.jpg)
+
 #### 仿函数
 
 ```auto ifind=find_if(mylist.bengin(),mylisy.end(),bindlst(greater<int>(),3));```
@@ -421,7 +474,8 @@ class shuchu {
 
 ```
 
-### 2019.11.15  6.wmv STL Bug 迭代器
+### 6.wmv STL Bug 迭代器 
+>>2019.11.15  
 
 -智能指针有一个_Ptr属性，可以打印里面的指针。
 
@@ -430,7 +484,8 @@ class shuchu {
 -分行打印就没有问题。
 
 
-### 2019.11.15  7.wmv 栈队列双端队列优先队列
+###  7.wmv 栈队列双端队列优先队列
+>> 2019.11.15 
 
 #### stack 关键字可以构建栈
 

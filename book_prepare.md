@@ -1,6 +1,22 @@
+<!-- TOC -->
+
+- [C++的学习之路――书籍，不得不看的几本书](#c的学习之路――书籍不得不看的几本书)
+    - [必看&不必看](#必看不必看)
+        - [C++标准程序库：](#c标准程序库)
+        - [STL源码剖析 （看看容器、迭代器、算法、函数对象乃至分配器的实现技巧）](#stl源码剖析-看看容器迭代器算法函数对象乃至分配器的实现技巧)
+        - [超越C++标准库：Boost库导论（Boost有比较完善的doc。可不看的书：《Boost程序库完全开发指南》有点啰嗦）](#超越c标准库boost库导论boost有比较完善的doc可不看的书boost程序库完全开发指南有点啰嗦)
+        - [The Boost C++ Libraries 第二版(Sept. 2014)](#the-boost-c-libraries-第二版sept-2014)
+        - [Boost.Asio C++ Network Programming（一本很好的网络编程入门小书）](#boostasio-c-network-programming一本很好的网络编程入门小书)
+        - [SGI STL Programmer's Guide （STL的话可以参考SGI的编程指南）](#sgi-stl-programmers-guide-stl的话可以参考sgi的编程指南)
+    - [最后，如何判断自己是否已经熟悉C++：](#最后如何判断自己是否已经熟悉c)
+    - [最后的最后，书要看，敲打键盘的手也不能停下！](#最后的最后书要看敲打键盘的手也不能停下)
+
+<!-- /TOC -->
+
+
 # C++的学习之路――书籍，不得不看的几本书
 
-- 入门：一本极其古老的C++和图形混搭的书。介绍语法也介绍如何用DOS下的CGI库。
+- 入门：一本极其古老的C++和图形混搭的书。介绍语法也介绍如何用DOsS下的CGI库。
 
 - 进阶：和别人没啥不一样。Effective C++/More Effective C++/Effective STL。
 

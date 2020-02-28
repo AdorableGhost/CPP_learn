@@ -1,4 +1,17 @@
 # CPP 小知识
+<!-- TOC -->
+
+- [CPP 小知识](#cpp-%e5%b0%8f%e7%9f%a5%e8%af%86)
+  - [Hacktosh](#hacktosh)
+  - [define](#define)
+  - [VS 格式化代码](#vs-%e6%a0%bc%e5%bc%8f%e5%8c%96%e4%bb%a3%e7%a0%81)
+  - [constexpr](#constexpr)
+  - [const_cast来去除const限定](#constcast%e6%9d%a5%e5%8e%bb%e9%99%a4const%e9%99%90%e5%ae%9a)
+  - [explicit 关键字](#explicit-%e5%85%b3%e9%94%ae%e5%ad%97)
+  - [快速编译Qt程序](#%e5%bf%ab%e9%80%9f%e7%bc%96%e8%af%91qt%e7%a8%8b%e5%ba%8f)
+
+<!-- /TOC -->
+
 
 ## Hacktosh
 https://mirrors.dtops.cc/iso/MacOS/daliansky_macos/macOS%20Catalina%2010.15.3%2819D76%29%20Installer%20for%20Clover%205103%20and%20WEPE.dmg
