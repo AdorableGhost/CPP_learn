@@ -1,56 +1,58 @@
-# CPP 学习笔记
+    # CPP 学习笔记
 
 <!-- TOC -->
 
-- [CPP 学习笔记](#cpp-学习笔记)
-    - [多线程](#多线程)
-        - [文件操作已经学完，今天看下多线程  2019.11.11 15:06](#文件操作已经学完今天看下多线程--20191111-1506)
-            - [知识点１](#知识点１)
-            - [代码1](#代码1)
-            - [知识点２](#知识点２)
-        - [知识点３](#知识点３)
-            - [代码３](#代码３)
-    - [STL](#stl)
-        - [STL 学习，没有带笔记本回来。。。我日 2019.11.11 23:21](#stl-学习没有带笔记本回来我日-20191111-2321)
-            - [STL的概念](#stl的概念)
-            - [代码](#代码)
-            - [STL抽象的是什么](#stl抽象的是什么)
-        - [六大组件](#六大组件)
-            - [vector 动态数组 堆上](#vector-动态数组-堆上)
-            - [tuple 可以存储不同的数据类型](#tuple-可以存储不同的数据类型)
-            - [list 适合经常插入，经常删除的情况](#list-适合经常插入经常删除的情况)
-            - [list 容器](#list-容器)
-            - [set 容器 （红黑树容器）](#set-容器-红黑树容器)
-        - [algorithm 算法](#algorithm-算法)
-        - [Iterator](#iterator)
-            - [仿函数](#仿函数)
-        - [6.wmv STL Bug 迭代器](#6wmv-stl-bug-迭代器)
-        - [7.wmv 栈队列双端队列优先队列](#7wmv-栈队列双端队列优先队列)
-            - [stack 关键字可以构建栈](#stack-关键字可以构建栈)
-            - [queue  队列](#queue--队列)
-            - [deque 双端队列](#deque-双端队列)
-            - [priority_que 优先级队列 （不太理解）](#priority_que-优先级队列-不太理解)
-        - [红黑树容器](#红黑树容器)
-            - [set 是一个红黑树](#set-是一个红黑树)
-        - [set map multi-map 红黑树](#set-map-multi-map-红黑树)
-            - [set的高级用法](#set的高级用法)
-            - [multiset](#multiset)
-            - [map  映射 multimap 多层映射 &nbsp;9.wmv 53:41](#map--映射-multimap-多层映射-nbsp9wmv-5341)
-            - [pair 关键字 &nbsp;9.wmv 01:23:15](#pair-关键字-nbsp9wmv-012315)
-            - [hash_set 和hash_map &nbsp;9.wmv 01:33:10](#hash_set-和hash_map-nbsp9wmv-013310)
-            - [equal_range()](#equal_range)
-        - [string 本质是一个容器](#string-本质是一个容器)
-                - [网上扒来的 string 介绍](#网上扒来的-string-介绍)
-        - [GPU编程](#gpu编程)
-            - [Lamda 表达式 C++ AMP 编程](#lamda-表达式-c-amp-编程)
-    - [设计模式](#设计模式)
-        - [备忘录模式](#备忘录模式)
+- [多线程](#多线程)
+    - [文件操作已经学完，今天看下多线程  2019.11.11 15:06](#文件操作已经学完今天看下多线程--20191111-1506)
+        - [知识点１](#知识点１)
+        - [代码1](#代码1)
+        - [知识点２](#知识点２)
+    - [知识点３](#知识点３)
+        - [代码３](#代码３)
+- [STL](#stl)
+    - [STL 学习，没有带笔记本回来。。。我日 2019.11.11 23:21](#stl-学习没有带笔记本回来我日-20191111-2321)
+        - [STL的概念](#stl的概念)
+        - [代码](#代码)
+        - [STL抽象的是什么](#stl抽象的是什么)
+    - [六大组件](#六大组件)
+        - [vector 动态数组 堆上](#vector-动态数组-堆上)
+        - [tuple 可以存储不同的数据类型](#tuple-可以存储不同的数据类型)
+        - [list 适合经常插入，经常删除的情况](#list-适合经常插入经常删除的情况)
+        - [list 容器](#list-容器)
+        - [set 容器 （红黑树容器）](#set-容器-红黑树容器)
+    - [algorithm 算法](#algorithm-算法)
+    - [Iterator](#iterator)
+        - [仿函数](#仿函数)
+    - [6.wmv STL Bug 迭代器](#6wmv-stl-bug-迭代器)
+    - [7.wmv 栈队列双端队列优先队列](#7wmv-栈队列双端队列优先队列)
+        - [stack 关键字可以构建栈](#stack-关键字可以构建栈)
+        - [queue  队列](#queue--队列)
+        - [deque 双端队列](#deque-双端队列)
+        - [priority_que 优先级队列 （不太理解）](#priority_que-优先级队列-不太理解)
+    - [红黑树容器](#红黑树容器)
+        - [set 是一个红黑树](#set-是一个红黑树)
+    - [set map multi-map 红黑树](#set-map-multi-map-红黑树)
+        - [set的高级用法](#set的高级用法)
+        - [multiset](#multiset)
+        - [map  映射 multimap 多层映射 &nbsp;9.wmv 53:41](#map--映射-multimap-多层映射-nbsp9wmv-5341)
+        - [pair 关键字 &nbsp;9.wmv 01:23:15](#pair-关键字-nbsp9wmv-012315)
+        - [hash_set 和hash_map &nbsp;9.wmv 01:33:10](#hash_set-和hash_map-nbsp9wmv-013310)
+        - [equal_range()](#equal_range)
+    - [string 本质是一个容器](#string-本质是一个容器)
+            - [网上扒来的 string 介绍](#网上扒来的-string-介绍)
+    - [GPU编程](#gpu编程)
+        - [Lamda 表达式 C++ AMP 编程](#lamda-表达式-c-amp-编程)
+- [设计模式](#设计模式)
+    - [备忘录模式](#备忘录模式)
 
 <!-- /TOC -->
 
 
+<a id="markdown-多线程" name="多线程"></a>
 ## 多线程
+<a id="markdown-文件操作已经学完今天看下多线程--20191111-1506" name="文件操作已经学完今天看下多线程--20191111-1506"></a>
 ### 文件操作已经学完，今天看下多线程  2019.11.11 15:06
+<a id="markdown-知识点１" name="知识点１"></a>
 #### 知识点１
 <li> Linux 下编译 带&ltthread&gt 的CPP需要加上 -pthread 编译选项。例如：
 ```
@@ -59,6 +61,7 @@ g++ -std=c++11 -pthread a.cpp
 ```
 <li>QT Creator 编译带&ltthread&gt的CPP有ＢＵＧ，暂时不知道怎么去除！
 
+<a id="markdown-代码1" name="代码1"></a>
 ####  代码1
 
 ```#include <iostream>
@@ -105,6 +108,7 @@ int main()
     return 0;
 }
 ```
+<a id="markdown-知识点２" name="知识点２"></a>
 #### 知识点２
 
 <li> 关于thread类的内部成
@@ -128,6 +132,7 @@ int main()
 
 <li> 线程 detach以后，子线程会成为孤儿线程，线程之间将无法通信。
 
+<a id="markdown-知识点３" name="知识点３"></a>
 ### 知识点３
 
 <li>线程中变量的竞争控制是通过 mutex automic 来实现的
@@ -136,6 +141,7 @@ int main()
 
 <li>atomic 原子变量。需要包含头文件&ltatomic>来实现　-->速度快，线程安全。
 
+<a id="markdown-代码３" name="代码３"></a>
 #### 代码３
 
 ```
@@ -226,9 +232,12 @@ int main()
 
 <li><em>vim 按ＣＴＲＬ+S 后假死按　ＣＴＲＬ＋q 退出
 
+<a id="markdown-stl" name="stl"></a>
 ## STL
+<a id="markdown-stl-学习没有带笔记本回来我日-20191111-2321" name="stl-学习没有带笔记本回来我日-20191111-2321"></a>
 ### STL 学习，没有带笔记本回来。。。我日 2019.11.11 23:21
 
+<a id="markdown-stl的概念" name="stl的概念"></a>
 #### STL的概念
 
 <li> Iterator  (迭代器)
@@ -237,6 +246,7 @@ int main()
 <li> Adapters (配接器) 用来实现容器之间的转接<br>
  面向过程--》面向对象-》基于对象-》泛型
 
+<a id="markdown-代码" name="代码"></a>
 #### 代码
 
 ```
@@ -286,12 +296,14 @@ int main(void)
 <li>这个遍历的函数为 for_each 不是foreach<br>
 <li>算法可以适用于任何容器<br>
 
+<a id="markdown-stl抽象的是什么" name="stl抽象的是什么"></a>
 #### STL抽象的是什么
 
 -有些算法并不依赖于数据结构的特定实现，而只依赖于该结构的几个基本语义属性
 
 -STL 抽象出的这些基本属性（concept）成功的将算法和数据结构相分离，在没有效率损失的前提下，获得了极大的弹性！
 
+<a id="markdown-六大组件" name="六大组件"></a>
 ### 六大组件
 
 -容器 （container)
@@ -374,17 +386,21 @@ class MyClass
 #### array
 ``` array <int ,5>={1,2,3,4,5};```
 -静态数组，栈上
+<a id="markdown-vector-动态数组-堆上" name="vector-动态数组-堆上"></a>
 #### vector 动态数组 堆上
   ```vector <int> mv;
    mv.push_back()
    ```
    -不需要变长，容量较小，array 需要变长，容量较大，用vector
 
+<a id="markdown-tuple-可以存储不同的数据类型" name="tuple-可以存储不同的数据类型"></a>
 #### tuple 可以存储不同的数据类型
 
+<a id="markdown-list-适合经常插入经常删除的情况" name="list-适合经常插入经常删除的情况"></a>
 #### list 适合经常插入，经常删除的情况
 
 
+<a id="markdown-list-容器" name="list-容器"></a>
 #### list 容器
 
 -list容器是无序容器
@@ -403,6 +419,7 @@ class MyClass
 
 --merge (使)合并，结合，并入;相融;融入;渐渐消失在某物中
 
+<a id="markdown-set-容器-红黑树容器" name="set-容器-红黑树容器"></a>
 #### set 容器 （红黑树容器）
 
 -set容器不能有重复项，重复的会被舍弃
@@ -413,6 +430,7 @@ class MyClass
 循环加栈
 
 
+<a id="markdown-algorithm-算法" name="algorithm-算法"></a>
 ### algorithm 算法
 
 find（）函数可以查找数组、容器中的元素。
@@ -423,9 +441,11 @@ multiset和set差不多，但是允许重复元素。
 
 迭代器本质是智能指针。
 
+<a id="markdown-iterator" name="iterator"></a>
 ### Iterator
 ![](iterator.jpg)
 
+<a id="markdown-仿函数" name="仿函数"></a>
 #### 仿函数
 
 ```auto ifind=find_if(mylist.bengin(),mylisy.end(),bindlst(greater<int>(),3));```
@@ -474,6 +494,7 @@ class shuchu {
 
 ```
 
+<a id="markdown-6wmv-stl-bug-迭代器" name="6wmv-stl-bug-迭代器"></a>
 ### 6.wmv STL Bug 迭代器 
 >>2019.11.15  
 
@@ -484,9 +505,11 @@ class shuchu {
 -分行打印就没有问题。
 
 
+<a id="markdown-7wmv-栈队列双端队列优先队列" name="7wmv-栈队列双端队列优先队列"></a>
 ###  7.wmv 栈队列双端队列优先队列
 >> 2019.11.15 
 
+<a id="markdown-stack-关键字可以构建栈" name="stack-关键字可以构建栈"></a>
 #### stack 关键字可以构建栈
 
 -用法
@@ -506,6 +529,7 @@ stack成员函数示例
 
 
 
+<a id="markdown-queue--队列" name="queue--队列"></a>
 #### queue  队列
 
 -queue 英 [kjuː]   美 [kjuː]  
@@ -544,6 +568,7 @@ swap(queue&lt;T&gt; &amp;other_q)：将当前 queue 中的元素和参数 queue 
 <br>
 queue&lt;T&gt; 模板定义了拷贝和移动版的 operator=()，对于所保存元素类型相同的 queue 对象，它们有一整套的比较运算符，这些运算符的工作方式和 stack 容器相同。<br>
 
+<a id="markdown-deque-双端队列" name="deque-双端队列"></a>
 #### deque 双端队列
 
 - deque 可以从头部push_front()和尾部push_back()插入 
@@ -618,17 +643,22 @@ void assign(int n,const T& x):向量中第n个元素的值设置为x
  
 [deque网上扒来的](deque.md)
 
+<a id="markdown-priority_que-优先级队列-不太理解" name="priority_que-优先级队列-不太理解"></a>
 #### priority_que 优先级队列 （不太理解）
 
 - 优先队列是按照堆来实现的
 
+<a id="markdown-红黑树容器" name="红黑树容器"></a>
 ### 红黑树容器
 
+<a id="markdown-set-是一个红黑树" name="set-是一个红黑树"></a>
 #### set 是一个红黑树
 
 
+<a id="markdown-set-map-multi-map-红黑树" name="set-map-multi-map-红黑树"></a>
 ### set map multi-map 红黑树
 
+<a id="markdown-set的高级用法" name="set的高级用法"></a>
 #### set的高级用法
 - 红黑树，处理纯字符串比较少，处理字符串及对象比较多。
 - pair 复合集合
@@ -678,6 +708,7 @@ int main(void)
 
 }
 ```
+<a id="markdown-multiset" name="multiset"></a>
 #### multiset
 - 可以插入相同的值
 - multiset 的每一个节点是一个链表
@@ -741,6 +772,7 @@ int main()
 
 ![输出结果](cout1.jpg)
 
+<a id="markdown-map--映射-multimap-多层映射-nbsp9wmv-5341" name="map--映射-multimap-多层映射-nbsp9wmv-5341"></a>
 #### map  映射 multimap 多层映射 &nbsp;9.wmv 53:41
 
 - map 也是 红黑树，但是能同时映射多个数据
@@ -811,6 +843,7 @@ int main()
   ![输出结果](cout2.jpg)
 
 
+<a id="markdown-pair-关键字-nbsp9wmv-012315" name="pair-关键字-nbsp9wmv-012315"></a>
 #### pair 关键字 &nbsp;9.wmv 01:23:15 
 
 - 用于插入 复杂映射类型
@@ -824,6 +857,7 @@ m.insert(pair<const char*,int> ("第三个"),5);
 m.insert(pair<const char*,int> ("第四个"),8);
 
 ```
+<a id="markdown-hash_set-和hash_map-nbsp9wmv-013310" name="hash_set-和hash_map-nbsp9wmv-013310"></a>
 #### hash_set 和hash_map &nbsp;9.wmv 01:33:10
 
 - 作用：把比较大的数据抽象得比较小
@@ -833,10 +867,12 @@ m.insert(pair<const char*,int> ("第四个"),8);
 - hash_set、hash_map 不会自动排序 
 - hash算法依赖于hash_table
 
+<a id="markdown-equal_range" name="equal_range"></a>
 #### equal_range()
 - 找到红黑树的链表节点，遍历所有节点
 - first为链表的首节点，second 为最后一个空节点
 
+<a id="markdown-string-本质是一个容器" name="string-本质是一个容器"></a>
 ### string 本质是一个容器
 
 - C语言中 下列代码是错误的：
@@ -860,13 +896,16 @@ str1.replace(3,"China"); replace (位置，长度，字符串)；
 
 - find_last_not_of () 找到最后一个不匹配的并返回所在位置。
 
+<a id="markdown-网上扒来的-string-介绍" name="网上扒来的-string-介绍"></a>
 ##### 网上扒来的 string 介绍
 
 - [String](string.md)
 
 
+<a id="markdown-gpu编程" name="gpu编程"></a>
 ### GPU编程 
 - 可以利用模板类实现对容器的操作（利用重载括号的方式）
+<a id="markdown-lamda-表达式-c-amp-编程" name="lamda-表达式-c-amp-编程"></a>
 #### Lamda 表达式 C++ AMP 编程
 - 函数包装器(LAMDA 表达式，类似JS里面的匿名函数) : 需要头文件 <functional>
 - GPU 强项在于并行计算，CPU强项在于单点计算
@@ -919,6 +958,8 @@ int main(void)
 }
 ```
 
+<a id="markdown-设计模式" name="设计模式"></a>
 ## 设计模式
 
+<a id="markdown-备忘录模式" name="备忘录模式"></a>
 ### 备忘录模式

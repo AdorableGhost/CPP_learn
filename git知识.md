@@ -1,14 +1,25 @@
+<a id="markdown-git-知识" name="git-知识"></a>
 # Git 知识
 
+<!-- TOC -->
 
+- [Git 知识](#git-%e7%9f%a5%e8%af%86)
+    - [git diff](#git-diff)
+    - [跳过使用暂存区域](#%e8%b7%b3%e8%bf%87%e4%bd%bf%e7%94%a8%e6%9a%82%e5%ad%98%e5%8c%ba%e5%9f%9f)
+    - [git log](#git-log)
+
+<!-- /TOC -->
 [git 基础操作](https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-%E9%85%8D%E7%BD%AE-Git)
 
+<a id="markdown-git-diff" name="git-diff"></a>
 ### git diff
 
 
+<a id="markdown-跳过使用暂存区域" name="跳过使用暂存区域"></a>
 ### 跳过使用暂存区域
 尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。Git 提供了一个跳过使用暂存区域的方式，只要在提交的时候，给 git commit 加上 -a 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 git add 步骤：
 
+<a id="markdown-git-log" name="git-log"></a>
 ### git log 
 
 我们常用 -p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新：
@@ -69,7 +80,7 @@ a11bef0 - Scott Chacon, 11 months ago : first commit
 </tr>
 <tr>
 <td><code>%ad</code></td>
-<td>作者修订日期（可以用 -date= 选项定制格式）</td>
+<td>作者修订日期（可以用 -date= 选项定制格式）s</td>
 </tr>
 <tr>
 <td><code>%ar</code></td>

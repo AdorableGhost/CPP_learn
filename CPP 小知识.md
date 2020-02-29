@@ -1,22 +1,37 @@
+<a id="markdown-cpp-小知识" name="cpp-小知识"></a>
 # CPP 小知识
 <!-- TOC -->
 
-- [CPP 小知识](#cpp-%e5%b0%8f%e7%9f%a5%e8%af%86)
-  - [Hacktosh](#hacktosh)
-  - [define](#define)
-  - [VS 格式化代码](#vs-%e6%a0%bc%e5%bc%8f%e5%8c%96%e4%bb%a3%e7%a0%81)
-  - [constexpr](#constexpr)
-  - [const_cast来去除const限定](#constcast%e6%9d%a5%e5%8e%bb%e9%99%a4const%e9%99%90%e5%ae%9a)
-  - [explicit 关键字](#explicit-%e5%85%b3%e9%94%ae%e5%ad%97)
-  - [快速编译Qt程序](#%e5%bf%ab%e9%80%9f%e7%bc%96%e8%af%91qt%e7%a8%8b%e5%ba%8f)
+- [CPP 小知识](#cpp-小知识)
+    - [Hacktosh](#hacktosh)
+    - [define](#define)
+    - [VS 格式化代码](#vs-格式化代码)
+    - [constexpr](#constexpr)
+    - [const_cast来去除const限定](#const_cast来去除const限定)
+    - [explicit 关键字](#explicit-关键字)
+    - [快速编译Qt程序](#快速编译qt程序)
+    - [#if的使用说明](#if的使用说明)
+        - [#if的后面接的是表达式](#if的后面接的是表达式)
+- [if (MAX==10)||(MAX==20)](#if-max10max20)
+- [endif](#endif)
+        - [#if defined的使用](#if-defined的使用)
+- [if后面接的是一个宏。](#if后面接的是一个宏)
+- [if defined (x)](#if-defined-x)
+- [endif](#endif-1)
+- [ifdef的使用](#ifdef的使用)
+- [ifdef的使用和#if defined()的用法一致](#ifdef的使用和if-defined的用法一致)
+- [ifndef又和#if !defined()的用法一致。](#ifndef又和if-defined的用法一致)
+        - [最后强调两点：](#最后强调两点)
 
 <!-- /TOC -->
 
 
+<a id="markdown-hacktosh" name="hacktosh"></a>
 ## Hacktosh
 https://mirrors.dtops.cc/iso/MacOS/daliansky_macos/macOS%20Catalina%2010.15.3%2819D76%29%20Installer%20for%20Clover%205103%20and%20WEPE.dmg
 迅雷下载
 
+<a id="markdown-define" name="define"></a>
 ## define
 - 作用
   - 预处理命令，定义常量、简单表达式，防止头文件重复包含
@@ -29,9 +44,11 @@ https://mirrors.dtops.cc/iso/MacOS/daliansky_macos/macOS%20Catalina%2010.15.3%28
     #endif  
 
 
+<a id="markdown-vs-格式化代码" name="vs-格式化代码"></a>
 ## VS 格式化代码
 - c-k c-d
 
+<a id="markdown-constexpr" name="constexpr"></a>
 ## constexpr
 
 - constexpr是C++11中新增的关键字，其语义是“常量表达式”，也就是在编译期可求值的表达式。最基础的常量表达式就是字面值或全局变量/函数的地址或sizeof等关键字返回的结果，而其它常量表达式都是由基础表达式通过各种确定的运算得到的。constexpr值可用于enum、switch、数组长度等场合。
@@ -66,6 +83,7 @@ constexpr的好处：
 相比宏来说，没有额外的开销，但更安全可靠。
 
 
+<a id="markdown-const_cast来去除const限定" name="const_cast来去除const限定"></a>
 ## const_cast来去除const限定
 对于const变量，我们不能修改它的值，这是这个限定符最直接的表现。但是我们就是想违背它的限定希望修改其内容怎么办呢？
 
@@ -91,6 +109,7 @@ const int* const_p = &constant;
 int* modifier = const_cast<int*>(const_p);
 *modifier = 7;
 
+<a id="markdown-explicit-关键字" name="explicit-关键字"></a>
 ## explicit 关键字
 - 定义：
   -  C++中的explicit关键字只能用于修饰只有一个参数的类构造函数, 它的作用是表明该构造函数是显示的, 而非隐式的, 跟它相对应的另一个关键字是implicit, 意思是隐藏的,类构造函数默认情况下即声明为implicit(隐式).
@@ -107,6 +126,7 @@ int* modifier = const_cast<int*>(const_p);
 - 原文 [原文](https://www.cnblogs.com/rednodel/p/9299251.html)
 
 
+<a id="markdown-快速编译qt程序" name="快速编译qt程序"></a>
 ## 快速编译Qt程序
 - 解决Qt Creator在编译应用程序时耗时较长的优化方法：
 
@@ -144,3 +164,41 @@ QMAKE_LIBDIR +="C:/Program Files (x86)/MySQL/MySQL Connector C 6.1/lib"```
     - 增加MySQL Connector C 6.1 安装目录下的lib路径下的libmysql.dll(.lib)库 的操作不正确。（mysql.pro 文件没写对）
     - qmake -- -- MYSQL_INCDIR=MySQL Connector C 6.1 安装目录下的include路径 MYSQL_LIBDIR=MySQL Connector C 6.1 安装目录下的lib路径 命令写错C Connector 的路径了
 
+
+<a id="markdown-if的使用说明" name="if的使用说明"></a>
+## #if的使用说明
+<a id="markdown-if的后面接的是表达式" name="if的后面接的是表达式"></a>
+### #if的后面接的是表达式
+
+<a id="markdown-if-max10max20" name="if-max10max20"></a>
+#if (MAX==10)||(MAX==20)
+ code...
+<a id="markdown-endif" name="endif"></a>
+#endif
+它的作用是：如果(MAX==10)||(MAX==20)成立，那么编译器就会把其中的#if 与 #endif之间的代码编译进去（注意：是编译进去，不是执行！！）
+
+<a id="markdown-if-defined的使用" name="if-defined的使用"></a>
+### #if defined的使用
+<a id="markdown-if后面接的是一个宏" name="if后面接的是一个宏"></a>
+#if后面接的是一个宏。
+
+<a id="markdown-if-defined-x" name="if-defined-x"></a>
+#if defined (x)
+    ...code...
+<a id="markdown-endif-1" name="endif-1"></a>
+#endif
+这个#if defined它不管里面的“x”的逻辑是“真”还是“假”它只管这个程序的前面的宏定义里面有没有定义“x”这个宏，如果定义了x这个宏，那么，编译器会编译中间的…code…否则不直接忽视中间的…code…代码。
+
+另外 #if defined(x)也可以取反，也就用 #if !defined(x)
+
+<a id="markdown-ifdef的使用" name="ifdef的使用"></a>
+#ifdef的使用
+<a id="markdown-ifdef的使用和if-defined的用法一致" name="ifdef的使用和if-defined的用法一致"></a>
+#ifdef的使用和#if defined()的用法一致
+<a id="markdown-ifndef又和if-defined的用法一致" name="ifndef又和if-defined的用法一致"></a>
+#ifndef又和#if !defined()的用法一致。
+
+<a id="markdown-最后强调两点" name="最后强调两点"></a>
+### 最后强调两点：
+- 第一：这几个宏定义只是决定代码块是否被编译！
+- 第二：别忘了#endif
