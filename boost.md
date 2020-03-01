@@ -22,6 +22,7 @@
             - [作用](#作用)
         - [Shared_ptr 定义](#shared_ptr-定义)
         - [Shared_ptr 内部构造](#shared_ptr-内部构造)
+    - [代码示例](#代码示例)
 
 <!-- /TOC -->
 
@@ -361,3 +362,165 @@ template <class T,class U> intrusive_ptr<T>
 static_pointer_cast(const intrusive_ptr<U>& r);
 }
 ```
+
+<a id="markdown-代码示例" name="代码示例"></a>
+## 代码示例
+```
+////#include "bst.h"
+#include <iostream>
+#include "boost/scoped_ptr.hpp"
+#include <string>
+#include "boost/algorithm/string.hpp" //String_algo 算法
+#include "boost/shared_ptr.hpp"
+//#include "boost/container/vector.hpp"
+#include <vector>
+#include <fstream>
+
+#define  SCOPED_PTR 0
+#define SHARED_SIMPLE 0
+#define SHARED_FILE 1
+
+using namespace boost;
+using std::cin;
+using std::cout;
+using std::endl;
+
+
+class filecloser
+{
+public:
+	filecloser();
+	~filecloser();
+
+	void operator()(std::fstream *fs)
+	{
+		cout << "Now starting to close the file resourse" << endl;
+		if (fs)
+		{
+			fs->close();
+			cout << "File Closed" << endl;
+		}
+		
+	}
+
+private:
+
+};
+
+filecloser::filecloser()
+{
+}
+
+filecloser::~filecloser()
+{
+}
+
+//#define  shared_ptr boost::shared_ptr;
+
+class A {
+
+public:
+	virtual void sing() = 0;
+protected:
+
+	virtual ~A()
+	{
+
+	}	   
+};
+
+
+class B : public A
+{
+public:
+	void sing()
+	{
+		cout << "A B C D E \n\n" << endl;
+	};
+
+	
+
+
+};
+
+
+static boost::shared_ptr<A>  createA()
+{
+	boost::shared_ptr<B> p(new B());
+
+	return p;
+
+}
+
+typedef std::vector<boost::shared_ptr<A>> sv;
+typedef boost::shared_ptr<B> SB;
+typedef sv::iterator sbi;
+
+
+//using namespace std;
+using namespace boost;
+
+using namespace std;
+
+int main(int argc, char ** argv)
+{
+
+#if SCOPED_PTR
+
+
+	scoped_ptr<string> st(new string("Scoped ptr  Inner Text"));
+
+	//错误的做法，scoped_ptr 不能复制
+	//st = new scoped_ptr<string>; 
+
+
+	cout << *st <<endl<<"Is "<<st->size()<<" length"<<endl;
+
+	*st = "文本已经改变！";	//但是scoped指针指向的内容是可以改变的，scoped_ptr 使用与普通指针没有区别！
+	
+	cout << endl << *st;
+
+#endif // SCOPED_PTR
+
+
+
+#if SHARED_SIMPLE
+
+	sv shared_v;
+
+	for (int i = 0; i < 100; i++)
+	{
+
+		shared_v.push_back(createA());
+	}
+
+	cout << "下面取出并打印:\n";							
+
+	for (auto a: shared_v)
+	{
+
+		a->sing();
+	}
+
+#endif
+
+
+#if SHARED_FILE
+
+	fstream fs("1.txt",ios::out|ios::out);
+	if (!fs.bad())
+	{
+		boost::shared_ptr<std::fstream> file(&fs,filecloser());
+		file->write("文件内读写！\n",60);	  
+	}
+	
+
+	
+
+#endif
+
+
+	cin.get();
+
+	return 0;
+}```
