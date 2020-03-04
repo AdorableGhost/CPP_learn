@@ -1,5 +1,5 @@
 <a id="markdown-boost-学习笔记" name="boost-学习笔记"></a>
-# Boost 学习笔记
+## Boost 学习笔记
 > 书籍：Beyond the C++ Standard Library : An Introduction to Boost 
     > > 注记（笔记）
 
@@ -27,37 +27,37 @@
 <!-- /TOC -->
 
 <a id="markdown-有用的" name="有用的"></a>
-## 有用的
-  ###  boost string_algo库 
+### 有用的
+  ####  boost string_algo库 
 - 头文件 boost/algorithm/string.hpp
 - 这是一组与字符串相关的算法。包括很多有用的算法，用于大小写转换，空格清除，字符串分割，查找及替换，等
 等。这组算法是目前C++标准库里已有功能的扩展。
 
 <a id="markdown-smart-pointer" name="smart-pointer"></a>
-## Smart Pointer
+### Smart Pointer
 
 
 <a id="markdown-智能指针-shared_ptr-weak_ptr-scoped_ptr--scoped_array--intrusive_ptr" name="智能指针-shared_ptr-weak_ptr-scoped_ptr--scoped_array--intrusive_ptr"></a>
-###  智能指针 ：shared_ptr weak_ptr scoped_ptr  scoped_array  intrusive_ptr,
+####  智能指针 ：shared_ptr weak_ptr scoped_ptr  scoped_array  intrusive_ptr,
 <a id="markdown-smart_ptr-库如何改进你的程序" name="smart_ptr-库如何改进你的程序"></a>
-#### Smart_ptr 库如何改进你的程序？
+##### Smart_ptr 库如何改进你的程序？
   - 使用 shared_ptr 进行对象的生存期自动管理，使得分享资源所有权变得有效且安全。
   - 使用 weak_ptr 可以安全地观测共享资源，避免了悬挂的指针。
   -  使用 scoped_ptr 和 scoped_array 限制资源的使用范围，使得代码更易于编写和维护，并有助于写出异常安全的代码。
 
 <a id="markdown-有三种典型的情况适合使用智能指针" name="有三种典型的情况适合使用智能指针"></a>
-#### 有三种典型的情况适合使用智能指针：
+##### 有三种典型的情况适合使用智能指针：
 - 资源所有权的共享
 -  要写异常安全的代码时
 - 避免常见的错误，如资源泄漏
 
 <a id="markdown-boost智能指针的优势" name="boost智能指针的优势"></a>
-#### boost智能指针的优势
+##### boost智能指针的优势
 虽然 C++ 标准库中提供了 std::auto_ptr, 但是它不能
 完全满足我们对智能指针的需求。例如，auto_ptr 不能用作 STL 容器的元素。Boost 的智能指针类填充了标准所留下来的缺口。
 
 <a id="markdown-scoped_ptr" name="scoped_ptr"></a>
-### scoped_ptr 
+#### scoped_ptr 
 - 它不能转让所有权，scoped_ptr 永远不能被复制或被赋值，scoped_ptr 拥有它所指向的资源的所有权，并永远不会放弃这个所有权
 
 - 成员函数：
@@ -73,7 +73,7 @@ scoped2) 可以更广泛地用于很多指针类型，包括裸指针和第三�
 只能用于它的定义所在的智能指针，而不能用于裸指针
 
 <a id="markdown-scoped_ptr-的用法" name="scoped_ptr-的用法"></a>
-#### scoped_ptr 的用法
+##### scoped_ptr 的用法
 - scoped_ptr 的用法与普通的指针没什么区别；最大的差别在于你不必再记得在指针上调用 delete，还有复制是不允许的。典型的指针操作(operator* 和 operator->)都被重载了，并提供了和裸指针一样的语法。用scoped_ptr 和用裸指针一样快，也没有大小上的增加，因此它们可以广泛使用。使用 boost::scoped_ptr时，包含头文件 "boost/scoped_ptr.hpp". 在声明一个scoped_ptr 时，用被指物的类型来指定类模板的参数。
 - 代码展示：
 
@@ -124,7 +124,7 @@ int main(int argc, char ** argv)
         - 如果你使用 scoped_ptr 作为一个类的成员，你就必须手工定义这个类的复制构造函数和赋值操作符。原因是 scoped_ptr 是不能复制的，因此聚集了它的类也变得不能复制了。
 
 <a id="markdown-scoped_ptr-和-pimpl-用法" name="scoped_ptr-和-pimpl-用法"></a>
-#### scoped_ptr 和 Pimpl 用法
+##### scoped_ptr 和 Pimpl 用法
 - Tips:
   - 如果 pimpl 实例可以安全地被多个封装类(在这里是 pimpl_sample)的实例所共享，那
 么用 boost::shared_ptr 来管理 pimpl 的生存期才是正确的选择。用 shared_ptr 比用 scoped_ptr 的优势
@@ -134,13 +134,13 @@ Beyond the C++ Standard Library : An Introduction to Boost
 确地用于未完成的类
 
 <a id="markdown-scoped_ptr-与-const-auto_ptr-的区别" name="scoped_ptr-与-const-auto_ptr-的区别"></a>
-#### scoped_ptr 与 const auto_ptr 的区别
+##### scoped_ptr 与 const auto_ptr 的区别
 -     scoped_ptr 可以被 reset, 在需要时可以删除并替换被指物。
 -     而对于 const auto_ptr 这是不可能的
 
 
 <a id="markdown-总结" name="总结"></a>
-#### 总结
+##### 总结
 - 使用裸指针来写异常安全和无错误的代码是很复杂的。使用智能指针来自动地把动态分配对象的生存期限制在一个
 明确的范围之内，是解决这种问题的一个有效的方法，并且提高了代码的可读性、可维护性和质量。scoped_ptr
 明确地表示被指物不能被共享和转移。正如你所看到的，std::auto_ptr 可以从另一个 auto_ptr 那里窃取被指
@@ -156,7 +156,7 @@ scoped_ptr 几乎总是以自动变量或数据成员来分配的，因此它可
 
 
 <a id="markdown-scoped_array" name="scoped_array"></a>
-### scoped_array
+#### scoped_array
 - 头文件: "boost/scoped_array.hpp"
 -作用：
   - 防止错误调用 delete 操作符而不是 delete[] 操作符。
@@ -164,14 +164,14 @@ scoped_ptr 几乎总是以自动变量或数据成员来分配的，因此它可
 别只在于 scoped_array 是用 delete[] 操作符来做这件事的。
 
 <a id="markdown-shared_ptr" name="shared_ptr"></a>
-### shared_ptr
+#### shared_ptr
 - 头文件: "boost/shared_ptr.hpp"
 - 分类
   - 插入式(intrusive)
   - 非插入式(non-intrusive)
 
 <a id="markdown-作用" name="作用"></a>
-#### 作用
+##### 作用
 - 被管理的类可能拥有一些特性使得它更应该与引用计数智能指针一起使用。例如，它的复制操作很昂贵，或 者它所
 代表的有些东西必须被多个实例共享，这些特性都值得去共享所有权。还有一种情形是共享的资源没有一个明确的拥
 有者。使用引用计数智能指针可以在需要 访问共享资源的对象之间共享资源的所有权。引用计数智能指针还让你可
@@ -180,7 +180,7 @@ scoped_ptr 几乎总是以自动变量或数据成员来分配的，因此它可
 入多个辅助容器来进行 特定的查找。
 
 <a id="markdown-shared_ptr-定义" name="shared_ptr-定义"></a>
-### Shared_ptr 定义
+#### Shared_ptr 定义
 - 可以从一个裸指针、另一个 shared_ptr、一个 std::auto_ptr、或者一个 boost::weak_ptr 构
 造。
 - 还可以传递第二个参数给 shared_ptr 的构造函数，它被称为删除器(deleter)。删除器稍后会被调用，来处理
@@ -188,7 +188,7 @@ scoped_ptr 几乎总是以自动变量或数据成员来分配的，因此它可
 - shared_ptr 被创建后，它就可象普通指针一样使用了，除了一点，它不能被显式地删除。
 
 <a id="markdown-shared_ptr-内部构造" name="shared_ptr-内部构造"></a>
-### Shared_ptr 内部构造
+#### Shared_ptr 内部构造
 >>> 定义
   ```
      namespace boost {
@@ -214,7 +214,7 @@ template <class T,class U>
 shared_ptr<T> static_pointer_cast(const shared_ptr<U>& r);
 }
 ```
-#### 成员函数
+##### 成员函数
 - ` template <class Y> explicit shared_ptr(Y* p); `
   - 这个构造函数获得给定指针 p 的所有权。参数 p 必须是指向 Y 的有效指针。构造后引用计数设为1。唯一从这个构
 造函数抛出的异常是 std::bad_alloc (仅在一种很罕见的情况下发生，即不能获得引用计数器所需的自由空间)。
@@ -275,7 +275,7 @@ shared_ptr 保存着一个有效的指针，返回值为 True；否则为 false�
   - 这可以很方便地交换两个 shared_ptr。 swap 函数交换保存的指针(以及它们的引用计数)。这个函数不会抛出异
 常
 
-### 普通函数
+#### 普通函数
 - `template <typename T,typename U>
 shared_ptr<T> static_pointer_cast(const shared_ptr<U>& r);`
   - 要对保存在 shared_ptr 里的指针执行 static_cast，我们可以取出指针然后强制转换它，但我们不能把它存到另
@@ -284,10 +284,10 @@ static_pointer_cast. 使用这个函数可以确保被指物的引用计数保�
 常。
 
 
-### 使用方法
+#### 使用方法
 -  详见最后的代码展示：
 
-### shared_ptr 与其它资源
+#### shared_ptr 与其它资源
 - 有时你会发现你要把 shared_ptr 用于某个特别的类型，它需要其它清除操作而不是简单的 delete.
 shared_ptr 可以通过客户化删除器来支持这种需要。那些处理象 FILE* 这样的操作系统句柄的资源通常要使用
 象 fclose 这样的操作来释放。要在 shared_ptr 里使用 FILE* ，我们要定义一个类来负责释放相应的资源。
@@ -296,7 +296,7 @@ shared_ptr 可以通过客户化删除器来支持这种需要。那些处理象
   - 在访问资源时，我们需要对 shared_ptr 使用 &* 用法, get, 或 get_pointer 。 (请注意最好使用 &*. 另两
 个选择不太清晰) 
 
-### 从this创建shared_ptr
+#### 从this创建shared_ptr
 - 有时候，需要从 this 获得 shared_ptr ，即是说，你希望你的类被 shared_ptr 所管理，你需要把“自身”转换
 为 shared_ptr 的方法。看起来不可能？好的，解决方案来自于我们即将讨论的另一个智能指针 boost::
 weak_ptr. weak_ptr 是 shared_ptr 的一个观察者；它只是安静地坐着并看着它们，但不会影响引用计数。通过存
@@ -306,7 +306,7 @@ Smart_ptr 为这个任务提供了一个助手类，称为 enable_shared_from_th
 enable_shared_from_this ，然后在需要访问管理 this 的 shared_ptr 时，使用函数 shared_from_this 就
 行了。
 
-### 总结
+#### 总结
 - 引用计数智能指针是非常重要的工具。 Boost 的 shared_ptr 提供了坚固而灵活的解决方案，它已被广泛用于多种
 环境下。需要在使用者之间共享对象是常见的，而且通常没有办法通知使用者何时删除对象是安全的。
 shared_ptr 让使用者无需知道也在使用共享对象的其它对象，并让它们 无需担心在没有对象引用时的资源释放。
@@ -316,7 +316,7 @@ shared_ptr 让使用者无需知道也在使用共享对象的其它对象，并
 还没有发现由于这些代价太大而需要另外寻找一个解决方案的情形。不要去创建你自己的引用计数智能指针类。没有
 比使用 shared_ptr 智能指针更好的了。
 
-### 使用shared_ptr 的时机
+#### 使用shared_ptr 的时机
 - 当有多个使用者使用同一个对象，而没有一个明显的拥有者时
 - 当要把指针存入标准库容器时
 - 当要传送对象到库或从库获取对象，而没有明确的所有权时
@@ -324,7 +324,7 @@ shared_ptr 让使用者无需知道也在使用共享对象的其它对象，并
   -  通过定制删除器的帮助。
 
 
-## shared_array
+### shared_array
 - 头文件: "boost/shared_array.hpp"
 - >> ared_array 用于共享数组所有权的智能指针。它与 shared_ptr 的关系就如 scoped_array 与
 scoped_ptr 的关系。 shared_array 与 shared_ptr 的不同之处主要在于它是用于数组的而不是用于单个对象
@@ -332,7 +332,7 @@ scoped_ptr 的关系。 shared_array 与 shared_ptr 的不同之处主要在于�
 vector 更有价值，因为它提供了对数组所有权的共享。 shared_array 的接口与 shared_ptr 非常相似，差别
 仅在于增加了一个下标操作符，以及不支持定制删除器。
 
-## instrusive_ptr
+### instrusive_ptr
 -   头文件: "boost/intrusive_ptr.hpp"
 >> - intrusive_ptr 是 shared_ptr 的插入式版本。有时我们必须使用插入式的引用计数智能指针。典型的情况是对
 于那些已经写好了内部引用计数器的代码，而我们又没有时间去重写它(或者已经不能获得那些代码了)。另一种情
@@ -364,7 +364,7 @@ static_pointer_cast(const intrusive_ptr<U>& r);
 ```
 
 <a id="markdown-代码示例" name="代码示例"></a>
-## 代码示例
+### 代码示例
 ```
 ////#include "bst.h"
 #include <iostream>
