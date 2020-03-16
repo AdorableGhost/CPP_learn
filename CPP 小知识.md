@@ -202,3 +202,7 @@ QMAKE_LIBDIR +="C:/Program Files (x86)/MySQL/MySQL Connector C 6.1/lib"```
 ### 最后强调两点：
 - 第一：这几个宏定义只是决定代码块是否被编译！
 - 第二：别忘了#endif
+
+## VIM 配置 （Mac)
+ - gitee 地址：https://gitee.com/chxuan/vimplus.git
+    - 详情见gitee 

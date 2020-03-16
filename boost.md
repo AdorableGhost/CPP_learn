@@ -523,4 +523,38 @@ int main(int argc, char ** argv)
 	cin.get();
 
 	return 0;
-}```
+}
+```
+
+### weak_ptr
+### 定义
+- weak_ptr 是 shared_ptr 的观察员。它不会干扰 shared_ptr 所共享的所有权。当一个被 weak_ptr 所观察的 shared_ptr 要释放它的资源时，它会把相关的 weak_ptr 的指针设为空。这防止了 weak_ptr 持有悬空的指针。 你为什么会需要 weak_ptr? 许多情况下，你需要旁观或使用一个共享资源，但不接受所有权，如为了防止递归的 依赖关系，你就要旁观一个共享资源而不能拥有所有权，或者为了避免悬空指针。可以从一个 weak_ptr 构造一 个 shared_ptr ，从而取得对共享资源的访问权。
+- 定义
+```
+namespace boost {
+template<typename T> class weak_ptr { public:
+template <typename Y> weak_ptr(const shared_ptr<Y>& r);
+weak_ptr(const weak_ptr& r); ~weak_ptr();
+T* get() const;
+bool expired() const;
+} };share
+```
+- 主要函数讲解
+  - `template <typename Y> weak_ptr(const shared_ptr<Y>& r);`
+    - 这个构造函数从一个 shared_ptr 创建 weak_ptr ，要求可以从 Y* 隐式转换为 T*. 新的 weak_ptr 被配置为旁 观 r 所引向的资源。 r 的引用计数不会有所改变。这意味着 r 所引向的资源在被删除时不会理睬是否有 weak_ptr 引向它。这个构造函数不会抛出异常。
+
+  - `weak_ptr(const weak_ptr& r);`
+    - 这个复制构造函数让新建的 weak_ptr 旁观 weak_ptr r(译注:原文为shared_ptr r，有误)所引向的资源。 weak_ptr
+(译注:原文为shared_ptr，有误)的引用计数保持不变。这个构造函数不会抛出异常。
+
+  - `~weak_ptr();`
+    - weak_ptr 的析构函数，和构造函数一样，它不改变引用计数。如果需要，析构函数会把 *this 与共享资源脱离 开。这个析构函数不会抛出异常。
+
+  - `bool expired() const;`
+    -   如果所观察的资源已经"过期"，即资源已被释放，则返回 True 。如果保存的指针为非空， expired 返回false. 这个函数不会抛出异常。
+
+  - `shared_ptr<T> lock() const`
+    - 返回一个引向 weak_ptr 所观察的资源的 shared_ptr ，如果可以的话。如果没有这样指针(即 weak_ptr 引向的 是空指针)， shared_ptr 也将引向空指针。否则， shared_ptr 所引向的资源的引用计数将正常地递增。这个 函数不会抛出异常。
+
+- 用法
+  
