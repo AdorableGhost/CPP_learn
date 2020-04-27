@@ -1,3 +1,4 @@
+<a id="markdown-qt学习" name="qt学习"></a>
 # QT学习
 
 
@@ -47,6 +48,7 @@
 <!-- /TOC -->
 
 
+<a id="markdown-基础" name="基础"></a>
 ## 基础
 - .pro文件为工程文件
 - .pro.user 特定环境的编译的工程文件
@@ -115,9 +117,11 @@ int main(int argc,char** argv)
 
 ```
 
+<a id="markdown-坐标系统" name="坐标系统"></a>
 ###  坐标系统
 - setGeometry(const &rect) 函数 或者 setGeometry(x,y,w,h);
 
+<a id="markdown-layouts" name="layouts"></a>
 ### layouts
 
 - QVBoxlayout
@@ -192,9 +196,11 @@ int main(int argc,char** argv)
 
 ```
 
+<a id="markdown-控件" name="控件"></a>
 ### 控件
 
 
+<a id="markdown-消息基础" name="消息基础"></a>
 ### 消息基础
 - 代码
 - dwin.hpp
@@ -333,8 +339,10 @@ int main (int argc ,char ** argv)
 
 ```
 
+<a id="markdown-qt-消息中级" name="qt-消息中级"></a>
 ### QT 消息中级
 
+<a id="markdown-eventfilter-截取消息" name="eventfilter-截取消息"></a>
 ####  eventFilter 截取消息
   - 首先需要安装EventFilter .经过这个控件的消息都必须经过这个过滤器
   -  pb->installEventFilter(this);
@@ -344,8 +352,10 @@ int main (int argc ,char ** argv)
   - dWidget.h
  ```
  #ifndef DWIDGET_H
+<a id="markdown-define-dwidget_h" name="define-dwidget_h"></a>
 #define DWIDGET_H
 
+<a id="markdown-include-qwidget" name="include-qwidget"></a>
 #include <QWidget>
 
 class dWidget : public QWidget
@@ -362,6 +372,7 @@ signals:
 public slots:
 };
 
+<a id="markdown-endif--dwidget_h" name="endif--dwidget_h"></a>
 #endif // DWIDGET_H
 
  ```
@@ -370,9 +381,13 @@ public slots:
   
   ```
   #include <QApplication>
+<a id="markdown-include-qevent" name="include-qevent"></a>
 #include <QEvent>
+<a id="markdown-include-qpushbutton" name="include-qpushbutton"></a>
 #include <QPushButton>
+<a id="markdown-include-qdebug" name="include-qdebug"></a>
 #include <QDebug>
+<a id="markdown-include-dwidgeth" name="include-dwidgeth"></a>
 #include "dwidget.h"
 
 dWidget::dWidget(QWidget *parent) : QWidget(parent)
@@ -410,11 +425,13 @@ int main (int argc,char ** argv)
 
   ```
 
+<a id="markdown-notify-通知消息" name="notify-通知消息"></a>
 ####  notify 通知消息
 
 - notify 函数属于 QApplication .需要重载QApplciation 实现自己的通知消息
 - 示例代码见最后
 
+<a id="markdown-postevent-和-sendevent" name="postevent-和-sendevent"></a>
 #### postEvent 和 sendEvent 
 - ap.postEvent(dd,new QEvent(QEvent::User)); //postEvent 加入消息队里等待处理
 - ap.sendEvent(dd,new QEvent(QEvent::User)); //发送给消息队列并立即处理
@@ -554,10 +571,12 @@ int main (int argc,char ** argv)
 }
 
 ```
+<a id="markdown-qpainter-和重写自定义控件" name="qpainter-和重写自定义控件"></a>
 ### QPainter 和重写自定义控件
 - 头文件 <QPainter>
 - 常用功能： drawLine drawRect drawText 等 ，可通过translate transform 变换
 
+<a id="markdown-qpainter-的绘图效率引用" name="qpainter-的绘图效率引用"></a>
 #### QPainter 的绘图效率(引用)
 - 通过定义 PaintDevice 然后在 PainDevice 中画，然后再显示
 - 可以通过 Qpainter 实现 一个自定义的画图工具
@@ -699,12 +718,15 @@ int main (int argc,char** argv)
 
 ```
 
+<a id="markdown-qpainter-实现自己的控件" name="qpainter-实现自己的控件"></a>
 #### QPainter 实现自己的控件
 
 
 
+<a id="markdown-信号和槽" name="信号和槽"></a>
 ### 信号和槽
 
+<a id="markdown-定义" name="定义"></a>
 #### 定义
 - 信号（Signal) 函数必须放在signals 保留字下，并且不需要实现
 - 槽 必须放在slots 保留字下，切必须实现
@@ -713,6 +735,7 @@ int main (int argc,char** argv)
 - 触发信号用emit 关键字
   
 
+<a id="markdown-需要注意的事项" name="需要注意的事项"></a>
 #### 需要注意的事项
 -   信号和槽，时QT的扩展，所以实现信号和槽的类，必须是QObject的子类
 -   实现信号和槽的类，必须以 Q_OBJECT 开始
@@ -728,17 +751,20 @@ int main (int argc,char** argv)
 - 在槽函数中，调用sender可以获得信号调用者
 - .....
 
+<a id="markdown-总结" name="总结"></a>
 #### 总结：
 - 一个类 QObject
 - 三个宏 Q_OBJECT SIGNAL SLOT
 - 三个保留字 signals slots  emit
 
 
+<a id="markdown-高级painter" name="高级painter"></a>
 ### 高级Painter
 -  QGraphicSence 和 QGraphicsItem 头文件使用
 
 
 
+<a id="markdown-qdialog" name="qdialog"></a>
 ### QDialog
 - 模块对话框和普通对话框：
   - 通过exec() 运行的是模块对话框，模块对话框有自己的消息循环，且把APP 的消息循环接管了（就是模块对话框出来以后，主窗口就点不动了
@@ -747,6 +773,7 @@ int main (int argc,char** argv)
 
 - 有很多特殊的 Dialog 如打印（预览） ，文件选择，MessageBox，颜色选择，字体选择
 
+<a id="markdown-代码展示" name="代码展示"></a>
 #### 代码展示
 
 - Dialog.h
@@ -898,6 +925,7 @@ int main(int argc, char *argv[])
 
 ```
   
+<a id="markdown-mainwindow" name="mainwindow"></a>
 ### MainWindow
 
 - 主窗口
@@ -1131,6 +1159,7 @@ int main(int argc, char *argv[])
 
 ```
 
+<a id="markdown-qfile-qbuffer-qxxxxstream-mapping" name="qfile-qbuffer-qxxxxstream-mapping"></a>
 ### QFile-QBuffer-QXXXXStream-Mapping
 - QIODevice 是所有IO 类的父类
   - QFile
@@ -1138,16 +1167,19 @@ int main(int argc, char *argv[])
   - QTCPSocket
   - QUDPSocket
 
+<a id="markdown-qfile" name="qfile"></a>
 #### QFile
 - 头文件 QFile
 - 函数  open write 
 - QString  是多字节字符串 QByteArray 是字节数
 
+<a id="markdown-qbuffer-内存-文件" name="qbuffer-内存-文件"></a>
 #### QBuffer //内存 文件
 - 头文件 QBuffer
 - 函数  open write 
 
 
+<a id="markdown-qdatastream-qtextstream" name="qdatastream-qtextstream"></a>
 #### QDataStream QTextStream
 
   
@@ -1259,22 +1291,27 @@ int main  (int argc,char ** argv)
 
 ```
 
+<a id="markdown-socket-tcp-udp-boardcast-muli-cast" name="socket-tcp-udp-boardcast-muli-cast"></a>
 ### Socket-TCP-UDP-BOARDCAST-MULI-CAST
 - QT socket 需要在 .pro 文件中添加 QT += newwork
 - TCPServer 头文件
 
+<a id="markdown-关于在new-生成控件的时候this-的解释-和-deletelater" name="关于在new-生成控件的时候this-的解释-和-deletelater"></a>
 ### 关于在new 生成控件的时候this 的解释 和 deleteLater
 
+<a id="markdown-关于在new-生成控件的时候this" name="关于在new-生成控件的时候this"></a>
 #### 关于在new 生成控件的时候this
 - 可以再生成控件的时候指定父对象this.此时，子对象的内存管理由父对象控制。
   - 当父对象销毁的时候，子对象也被父对象销毁。避免了内存泄漏
   - 窗口类可指定父子关系，避免了多一步的绑定
   - 指定了父对象后也可以使用delete 释放，此时子对象的析构函数会通知父对象接触父子关系
 
+<a id="markdown-deletelater" name="deletelater"></a>
 #### deleteLater 
 - 定义 延时删除，只是发送标记，不是立即删除
 
 
+<a id="markdown-qt动态库" name="qt动态库"></a>
 ### QT动态库
 
 - QT 使用LIBRARYSHARED_EXPORT （Q_DECL_EXPORT） 声明类来跨平台宏
@@ -1287,20 +1324,25 @@ int main  (int argc,char ** argv)
     - 不需要后缀 .dll
 
 
+<a id="markdown-qt静态库" name="qt静态库"></a>
 ### QT静态库
 - ....
 
 
+<a id="markdown-qt-json" name="qt-json"></a>
 ### QT JSON
 - 头文件 <QJsonDocument> <QJsonDocument> 
 - 
 
+<a id="markdown-qt-加密" name="qt-加密"></a>
 ### QT 加密
 - 头文件 #include <QCryptographicHash> 
   - 有MD5 SHA 等加密
 
+<a id="markdown-qsqldatabase-的使用" name="qsqldatabase-的使用"></a>
 ### QSQLDatabase 的使用
 
+<a id="markdown-编译mysql-驱动" name="编译mysql-驱动"></a>
 #### 编译Mysql 驱动
 -   1.下载MySQL Connector C 6.1并安装
 -   2.打开 VS 2017的开发人员命令提示符 
@@ -1322,16 +1364,21 @@ QMAKE_LIBDIR +="C:/Program Files (x86)/MySQL/MySQL Connector C 6.1/lib"```
     - 增加MySQL Connector C 6.1 安装目录下的lib路径下的libmysql.dll(.lib)库 的操作不正确。（mysql.pro 文件没写对）
     - qmake -- -- MYSQL_INCDIR=MySQL Connector C 6.1 安装目录下的include路径 MYSQL_LIBDIR=MySQL Connector C 6.1 安装目录下的lib路径 命令写错C Connector 的路径了
 
+<a id="markdown-qsqldatabase-的使用-1" name="qsqldatabase-的使用-1"></a>
 ### QSQLDatabase 的使用
+<a id="markdown-原生执行sql语句" name="原生执行sql语句"></a>
 #### 原生执行SQL语句
 
+<a id="markdown-qsqlmodel-方式-执行" name="qsqlmodel-方式-执行"></a>
 #### QSQLModel 方式 执行
 
+<a id="markdown-qtableview-特别方便" name="qtableview-特别方便"></a>
 #### QTableView 特别方便
 - 用来显示QTable 类型的数据 
 
 
 
+<a id="markdown-qprocess-的使用" name="qprocess-的使用"></a>
 ### Qprocess 的使用
 - 头文件
   - Qprocess
