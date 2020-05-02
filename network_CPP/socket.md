@@ -1,5 +1,6 @@
 # SOket
 - 示意图
+
 ![socket](socket.png)
 
 ## Windows 代码编写
@@ -143,3 +144,15 @@ int main(void)
 }
 
 ```
+
+## 建立 C/S 架构的服务器客户端
+- 核心
+
+![](cs.png)
+- 挨个实现就好了
+
+## 网络数据报文
+
+
+
+## select 网络模型
