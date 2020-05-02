@@ -1,18 +1,34 @@
 # SOket
 - 示意图
 
-![socket](socket.png)
+  <img src="E:\code\CPP_learn\network_CPP\socket_basic.png" alt="socket" style="zoom:300%;" />
+
+  
 
 ## Windows 代码编写
+
 - #define WIN32_LEAN_AND_MEAN 
     - 定义这个宏，避免冲突
 
+- 加载头文件 #include <WinSock2.h>
+
+- WSAStartup 函数
+	- `int WSAStartup(
+  WORD      wVersionRequired,
+  LPWSADATA lpWSAData
+);`
 -  VC 方式加载库
  - #pragma comment(lib,"ws2_32.lib")
 
 - 其他方式
     -  在链接器-> 输入 里面加入 ws2_32.lib 
 
+- socket 函数
+	- ` SOCKET WSAAPI socket(
+	int af,
+	int type,
+	int protocol
+	);`
 
 代码：
 ```
