@@ -56,3 +56,15 @@ int main (int argc,char** argv)
 - /dev/tty 指向 本终端 O_NONBLOK 标志，非阻塞标志
 
 - perror 函数： 打印错误
+
+- lseek () 函数
+    - 移动位置指针
+    - man lseek
+
+- fcntl()
+    - 获取/重设文件访问权限
+
+### 文件系统
+- stat 查看文件信息
+
+- 一个目录是4096 Bytes 大小。 是一个块
