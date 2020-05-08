@@ -65,6 +65,12 @@ int main (int argc,char** argv)
     - 获取/重设文件访问权限
 
 ### 文件系统
+
+![ext2](ext2.png)
 - stat 查看文件信息
 
 - 一个目录是4096 Bytes 大小。 是一个块
+
+- / 目录inode为2 
+
+- link 函数 创建硬链接
